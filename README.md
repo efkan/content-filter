@@ -52,7 +52,8 @@ Use this option to configure URL black list elements (ASCII codes) and to stop t
  `app.use(filter({urlBlackList:['%24ne']}))` <br>
 
 **urlMessage**:<br>
-Use this option to change the default request blocking message to see by the user.<br>
+Use this option to change the default request blocking message to see by the user. <br>
+ `app.use(filter({urlMessage: 'A forbidden character set has been found in URL: '}))` <br>
 
 **bodyBlackList**:<br>
 Use this option to configure body black list elements and to stop the filtering the body content. The module checks for `{` and `$` as default considering MongoDB.<br>
@@ -78,7 +79,7 @@ Use this option to select method which will have been filtered and to stop the c
  ```
  var filterConf = {
  	urlBlackList:['%24ne'], 
- 	urlMessage: 'A forbidden character has been found in URL: ',
+ 	urlMessage: 'A forbidden character set has been found in URL: ',
  	bodyBlackList:['$ne'], 
  	bodyMessage: 'A forbidden character has been found in form data: ',
  	methodList:['POST', 'PUT', 'DELETE']
