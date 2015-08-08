@@ -41,7 +41,7 @@ app.use(filter());
 
 There are several options is used for to configure the module. 
 
-*urlBlackList*:<br> 
+**urlBlackList**:<br> 
 Use this option to configure URL black list elements (ASCII codes) and to stop the filtering the URL content. The module checks `%7B` for `{` and `%24` for `$` as default  considering MongoDB.<br>
 <small>req.originalUrl data contains req.query object</small><br>
 
@@ -51,10 +51,10 @@ Use this option to configure URL black list elements (ASCII codes) and to stop t
   To configure to filter only for `$ne` characters;<br>
  `app.use(filter({urlBlackList:['%24ne']}))` <br>
 
-*urlMessage*:<br>
+**urlMessage**:<br>
 Use this option to change the default request blocking message to see by the user.<br>
 
-*bodyBlackList*:<br>
+**bodyBlackList**:<br>
 Use this option to configure body black list elements and to stop the filtering the body content. The module checks for `{` and `$` as default considering MongoDB.<br>
 
  To remove body filtering;<br>
@@ -63,18 +63,18 @@ Use this option to configure body black list elements and to stop the filtering 
   To configure to filter only for `$ne` characters;<br>
  `app.use(filter({bodyBlackList:['$ne']}))` <br>
 
-*bodyMessage*:<br>
+**bodyMessage**:<br>
 Use this option to change the default request blocking message to see by the user.<br> 
 
-*methodList*:<br>
+**methodList**:<br>
 Use this option to select method which will have been filtered and to stop the checking any method. The module checks for GET, POST, PUT and DELETE methods as default.  <br>
 
   To configure to filter only for `POST`, `PUT` and `DELETE` methods;<br>
  `app.use(filter({methodList:['POST', 'PUT', 'DELETE']}))` <br>
 
-*Giving combine options:*<br>
- `app.use(filter({urlBlackList:['%24ne'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE']}))` <br>
- Or <br>
+**Giving combine options:**<br>
+ ```app.use(filter({urlBlackList:['%24ne'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE']}))```
+ or 
  ```
  var filterConf = {
  	urlBlackList:['%24ne'], 
