@@ -93,12 +93,9 @@ Performance test results
 
  I've used real data for my tests. <br>
  **Test environment:** Intel 3 Ghz Dual-Core CPU and 4 GB RAM<br>
- **Test1 data:** JSON includes; 9 elements at level-1, 11 elements at level-2, 4 elements at 
-             level-3, 2 elements at level-4 and 2 elements at level-5 too. URL data length is not important. <br> 
+ **Test1 data:** JSON includes; 9 elements at level-1, 11 elements at level-2, 4 elements at level-3, 2 elements at level-4 and 2 elements at level-5 too. URL data length is not important. <br> 
  **Test1 result:** 5 ms = 0.005 sec<br>
- **Test2 data:** JSON includes; 11 elements at level-1 and 4 elements at level-2 Level-1 has two long
-             fileds. The first one contain a picture data as base64 string and its length is 168275.
-             Other one contains a string its length 2365.<br>
+ **Test2 data:** JSON includes; 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168275. Other one contains a string its length 2365.<br>
  **Test2 result:** 1 ms = 0.001 sec<br>
 
 
