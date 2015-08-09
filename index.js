@@ -26,7 +26,7 @@ module.exports = function filter(options) {
 		if(found) return res.status(403).send(urlMessage + found)
 	  /* Examining the req.body object */
 		if(Object.keys(req.body).length) {
-			console.log("start time: " + new Date().valueOf())	            
+			// console.log("start time: " + new Date().valueOf())	            
 			jsonToString(req.body, typeofList, checkNames, function(str){                       
 				for(var i=0;i<bodyBlackList.length;i++){
 					if(str.indexOf(bodyBlackList[i]) != -1) {
@@ -35,7 +35,7 @@ module.exports = function filter(options) {
 					}
 				}			
 				if(found) return res.status(403).send(bodyMessage + found)
-				console.log("end time: " + new Date().valueOf())	           
+				// console.log("end time: " + new Date().valueOf())	           
 				next()
 			})
 		} else {
