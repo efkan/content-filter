@@ -1,6 +1,6 @@
 {
   "name": "content-filter",
-  "version": "1.0.5",
+  "version": "1.0.4",
   "description": "Filters content of a given HTML request. In this way helps to protect NoSQL databases from hash-injection",
   "main": "index.js",
   "keywords": [
@@ -13,11 +13,24 @@
     "hash-injection",
     "filetring"
   ],
-  "author": "efkan",
+  "author": {
+    "name": "efkan"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/efkan/content-filter.git"
+    "url": "git+https://github.com/efkan/content-filter.git"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "readme": "# Content-filter\r\nThe module returns an Express.js **middleware** that is used for to examine URL and HTML body contents of the request (by using body-parser) to block requests that have forbidden characters. In this way, `content-filter` protects your applications from NoSQL (like MongoDB) injection on Node.js . \r\n\r\nFor more informations;<br>\r\nhttps://www.owasp.org/index.php/Testing_for_NoSQL_injection<br>\r\nhttp://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb.html\r\n\r\nNot depends on MongoDB\r\n----------------------\r\nAlso you can use with purpose of filtering for anything.\r\n\r\nMotivation\r\n-----------\r\nThere a copule of risc when developing a project using NoSQL databases like MongoDB. The first one about URL and the other one about req.body .(sent data by an allowed user)\r\n\r\n<b>Allowed user risc</b><br>\r\nIf a malicious user tries to hack your database it's not so hard for any body. For instance you use `/users/123` as URL to get information and show to a user whose `id` is `123`. However someone tries `/users/%7B%24ne%3Anull%7D` as URL to get user informations after logged on your system the URL means `/users/{$ne:null}` and likely your server sends the all users from your user collection.\r\n\r\n<b>Content risc</b><br>\r\nIf you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which name is [mongo-sanitize][1]. However my aim is to generate a module that wraps all codes without any special labor. So I've written this easy module.\r\n\r\n\r\nGuide\r\n---------\r\n<b>Install</b><br>\r\n`npm install content-filter`\r\n\r\n<b>Using with Express.js</b>\r\n```\r\nvar express = require('express')\r\nvar bodyParser = require('body-parser')\r\nvar filter = require('content-filter')\r\n\r\nvar app = express()\r\n\r\napp.use(bodyParser.json({limit: '5mb'})) \r\napp.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }))\r\n\r\napp.use(filter());\r\n```\r\n\r\nThere are several options is used for to configure the module. \r\n\r\n**urlBlackList**:<br> \r\nUse this option to configure URL black list elements (ASCII codes) and to stop the filtering the URL content. The module checks `%7B` for `{` and `%24` for `$` as default  considering MongoDB.<br>\r\n<small>req.originalUrl data contains req.query object</small><br>\r\n\r\n To remove url filtering;<br>\r\n `app.use(filter({urlBlackList:[null]}))` <br>\r\n \r\n  To configure to filter only for `$ne` characters;<br>\r\n `app.use(filter({urlBlackList:['%24ne']}))` <br>\r\n\r\n**urlMessage**:<br>\r\nUse this option to change the default request blocking message to see by the user.<br>\r\n\r\n**bodyBlackList**:<br>\r\nUse this option to configure body black list elements and to stop the filtering the body content. The module checks for `{` and `$` as default considering MongoDB.<br>\r\n\r\n To remove body filtering;<br>\r\n `app.use(filter({bodyBlackList:[null]}))` <br>\r\n \r\n  To configure to filter only for `$ne` characters;<br>\r\n `app.use(filter({bodyBlackList:['$ne']}))` <br>\r\n\r\n**bodyMessage**:<br>\r\nUse this option to change the default request blocking message to see by the user.<br> \r\n\r\n**methodList**:<br>\r\nUse this option to select method which will have been filtered and to stop the checking any method. The module checks for GET, POST, PUT and DELETE methods as default.  <br>\r\n\r\n  To configure to filter only for `POST`, `PUT` and `DELETE` methods;<br>\r\n `app.use(filter({methodList:['POST', 'PUT', 'DELETE']}))` <br>\r\n\r\n**Giving combine options:**<br>\r\n ```app.use(filter({urlBlackList:['%24ne'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE']}))```\r\n or \r\n ```\r\n var filterConf = {\r\n \turlBlackList:['%24ne'], \r\n \turlMessage: 'A forbidden character has been found in URL: ',\r\n \tbodyBlackList:['$ne'], \r\n \tbodyMessage: 'A forbidden character has been found in form data: ',\r\n \tmethodList:['POST', 'PUT', 'DELETE']\r\n }\r\n\r\n app.use(filter(filterConf))\r\n ```\r\n\r\nPerformance test results\r\n--------------------------\r\n\r\n I've used real data for my tests. <br>\r\n **Test environment:** Intel 3 Ghz Dual-Core CPU and 4 GB RAM<br>\r\n **Test1 data:** JSON includes; 9 elements at level-1, 11 elements at level-2, 4 elements at \r\n             level-3, 2 elements at level-4 and 2 elements at level-5 too. URL data length is not important. <br> \r\n **Test1 result:** 5 ms = 0.005 sec<br>\r\n **Test2 data:** JSON includes; 11 elements at level-1 and 4 elements at level-2 Level-1 has two long\r\n             fileds. The first one contain a picture data as base64 string and its length is 168275.\r\n             Other one contains a string its length 2365.<br>\r\n **Test2 result:** 1 ms = 0.001 sec<br>\r\n\r\n\r\n\r\n[1]:https://github.com/vkarpov15/mongo-sanitize\r\n",
+  "readmeFilename": "README.md",
+  "gitHead": "45cd90b7f664c1565b3a21b729b7d1613de0ad5a",
+  "bugs": {
+    "url": "https://github.com/efkan/content-filter/issues"
+  },
+  "homepage": "https://github.com/efkan/content-filter#readme",
+  "_id": "content-filter@1.0.4",
+  "scripts": {},
+  "_shasum": "72cf766f427999269e2a421b02a2b87b626b95c2",
+  "_from": "content-filter@*"
 }

@@ -19,6 +19,10 @@ If a malicious user tries to hack your database it's not so hard for any body. F
 <b>Content risc</b><br>
 If you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which name is [mongo-sanitize][1]. However my aim is to generate a module that wraps all codes without any special labor. So I've written this easy module.
 
+How to work
+-------------
+Content-filter transforms the request URL and body data to a string then searches the forbidden characters.<br><br>
+
 
 Guide
 ---------
@@ -39,16 +43,22 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }))
 app.use(filter());
 ```
 
-There are several options is used for to configure the module. 
+There are several options is used for to configure the module.
+
+**typeofList**:<br> 
+Use this option to set filter data structure types of Javascript. Content-filter able to check every data type (object, function, number, string, boolean and symbol) to filter. Because an application cannot make a decision whether an expression is an innocent or a malicious. But a developer can. Content-filter checks `object` and `function` types as default considering MongoDB security. 
+
+ Setting to check only `string` data types;<br>
+ `app.use(filter({typeofList:['string']}))` <br>
 
 **urlBlackList**:<br> 
-Use this option to configure URL black list elements (ASCII codes) and to stop the filtering the URL content. The module checks `%7B` for `{` and `%24` for `$` as default  considering MongoDB.<br>
+Use this option to configure URL black list elements (ASCII codes) and to stop the filtering the URL content. The module checks `%7B` for `{` and `%24` for `$` as default considering MongoDB security.<br>
 <small>req.originalUrl data contains req.query object</small><br>
 
- To remove url filtering;<br>
+ Removing url filtering;<br>
  `app.use(filter({urlBlackList:[null]}))` <br>
  
-  To configure to filter only for `$ne` characters;<br>
+ Configuring to filter only for `$ne` characters;<br>
  `app.use(filter({urlBlackList:['%24ne']}))` <br>
 
 **urlMessage**:<br>
@@ -56,13 +66,31 @@ Use this option to change the default request blocking message to see by the use
  `app.use(filter({urlMessage: 'A forbidden character set has been found in URL: '}))` <br>
 
 **bodyBlackList**:<br>
-Use this option to configure body black list elements and to stop the filtering the body content. The module checks for `{` and `$` as default considering MongoDB.<br>
+Use this option to configure body black list elements and to stop the filtering the body content. The module checks for `$` as default considering MongoDB security.<br>
 
- To remove body filtering;<br>
+ Removing body filtering;<br>
  `app.use(filter({bodyBlackList:[null]}))` <br>
  
-  To configure to filter only for `$ne` characters;<br>
+ Configuring to filter only for `$ne` characters;<br>
  `app.use(filter({bodyBlackList:['$ne']}))` <br>
+
+**checkNames**:<br>
+Use this option to include property names of the objects -that will have been checked- to filter. The option is `true` as default.
+
+Assume there is a request body object like the following which comes from a user form to delete selected goods from `shoppingCarts` collection by user _id value from our MongoDB. If `checkNames` option set `false` content-filter checks `"abcd"` and `10` values if *typeofList* contains 'string' and 'number' values. When `checkNames` option is set, content-filter checks `id`, `$ne`, `"abcd"`, `count` and `10` values under the same conditions.
+
+```
+{ 
+	_id: { $ne: "abcd" },
+	count: 10
+}
+```
+```
+shoppingCarts.delete({ _id: req.body._id })
+```
+
+By the way, the above method is wrong. Instaed that, Passport.js and `req.user._id` object could be used.<br> 
+
 
 **bodyMessage**:<br>
 Use this option to change the default request blocking message to see by the user.<br> 
@@ -70,7 +98,7 @@ Use this option to change the default request blocking message to see by the use
 **methodList**:<br>
 Use this option to select method which will have been filtered and to stop the checking any method. The module checks for GET, POST, PUT and DELETE methods as default.  <br>
 
-  To configure to filter only for `POST`, `PUT` and `DELETE` methods;<br>
+ Configuring to filter only for `POST`, `PUT` and `DELETE` methods;<br>
  `app.use(filter({methodList:['POST', 'PUT', 'DELETE']}))` <br>
 
 **Giving combine options:**<br>
@@ -93,11 +121,20 @@ Performance test results
 
  I've used real data for my tests. <br>
  **Test environment:** Intel 3 Ghz Dual-Core CPU and 4 GB RAM<br>
- **Test1 data:** JSON includes; 9 elements at level-1, 11 elements at level-2, 4 elements at level-3, 2 elements at level-4 and 2 elements at level-5 too. URL data length is not important. <br> 
- **Test1 result:** 5 ms = 0.005 sec<br>
- **Test2 data:** JSON includes; 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168275. Other one contains a string its length 2365.<br>
- **Test2 result:** 1 ms = 0.001 sec<br>
+ **Action:** POST <br>
+ **Options:** Default options <br>
 
+ **Test1** <br>
+ *Data:* Consists of nested objects which have 5 objects depth of the total. There were 9 elements at level-1, 11 elements at level-2, 4 elements at level-3, 2 elements at level-4 and 2 elements at level-5 too. URL data length is not important. <br> 
+ *Result:* 1 ms < result < 15 ms  &nbsp;  ( 1 ms = 0.001 sec )<br><br>
+
+ **Test2** <br>
+ *Data:* Consists of nested objects which have 2 objects depth of the total. 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168275. Other one contains a string its length 2365.<br>
+ *Options:* typeofList has been set as ["object", "function","string"]<br>
+ *Result:* Total filtered string length is 170814 in 1 ms = 0.001 sec<br>
+
+ **Conclusion** <br>
+ This is a configurable and convenient tool to filter data which doesn't have so deep nested objects.
 
 
 [1]:https://github.com/vkarpov15/mongo-sanitize
