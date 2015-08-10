@@ -42,6 +42,24 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }))
 
 app.use(filter());
 ```
+By the above default using, content-filter checks the request URL for `{` and `$` characters and functions and objects of the html body data property names for `$` character coming by `GET`, `POST`, `PUT` and `DELETE` methods. 
+
+For example, content-filter checks "/users", _id", "name", "address", "street", "province" and "$ne" values from the below request. "/users" is examined for `{` and `$` characters and it passes. The others are examined for `$` character and return 403 status with an error message because of "$ne" expression and hereby **content-filter provide a reliable security for applications**.
+
+```
+PUT /users HTTP/1.1
+Host: webaddress.com
+Content-Type: application/json
+
+{
+  "_id": "b4a7dedaa8cbbf30154f14bc",
+  "name": "Jack",
+  "addrsss": {
+		"street": "Raising Road St.",
+		"province": { "$ne": "A Malicious Expression" } 
+  }
+}	
+```
 
 There are several options is used for to configure the module.
 
@@ -77,7 +95,7 @@ Use this option to configure body black list elements and to stop the filtering 
 **checkNames**:<br>
 Use this option to include property names of the objects -that will have been checked- to filter. The option is `true` as default.
 
-Assume there is a request body object like the following which comes from a user form to delete selected goods from `shoppingCarts` collection by user _id value from our MongoDB. If `checkNames` option set `false` content-filter checks `"abcd"` and `10` values if *typeofList* contains 'string' and 'number' values. When `checkNames` option is set, content-filter checks `id`, `$ne`, `"abcd"`, `count` and `10` values under the same conditions.
+Assume there is a request body object like the following which comes from a user form to delete selected goods from `shoppingCarts` collection by user _id value from our MongoDB. If `checkNames` option is set as `false` content-filter checks `"abcd"` and `10` values if *typeofList* contains 'string' and 'number' values. When `checkNames` option is `true`, content-filter checks `id`, `$ne`, `"abcd"`, `count` and `10` values under the same conditions.
 
 ```
 { 
@@ -132,6 +150,20 @@ Performance test results
  *Data:* Consists of nested objects which have 2 objects depth of the total. 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168275. Other one contains a string its length 2365.<br>
  *Options:* typeofList has been set as ["object", "function","string"]<br>
  *Result:* Total filtered string length is 170814 in 1 ms = 0.001 sec<br>
+
+ **Decription of object levels**
+ ```
+{
+	level1_a: 1,
+	level1_b: 2,
+	level1_c: {
+		level2_a: "One",
+		level2_b: {
+			level3_a: "The level is three",
+		}
+	}	
+}
+ ```
 
  **Conclusion** <br>
  This is a configurable and convenient tool to filter data which doesn't have so deep nested objects.
