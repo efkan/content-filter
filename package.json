@@ -1,6 +1,6 @@
 {
   "name": "content-filter",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Filters content of a given HTML request. In this way helps to protect NoSQL databases from hash-injection",
   "main": "index.js",
   "keywords": [
