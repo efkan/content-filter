@@ -44,7 +44,7 @@ app.use(filter());
 ```
 By the above default using, content-filter checks the request URL for `{` and `$` characters and functions and objects of the html body data property names for `$` character coming by `GET`, `POST`, `PUT` and `DELETE` methods. 
 
-For example, content-filter checks "/users", _id", "name", "address", "street", "province" and "$ne" values from the below request. "/users" is examined for `{` and `$` characters and it passes. The others are examined for `$` character and return 403 status with an error message because of "$ne" expression and hereby **content-filter provide a reliable security for applications**.
+For example, content-filter checks "/users", _id", "name", "address", "street", "province" and "$ne" values from the below request. "/users" is examined for `{` and `$` characters and it passes. The others are examined for `$` character and return 403 status with an error message because of "$ne" expression and hereby **content-filter provide a reliable security for MongoDB applications**.
 
 ```
 PUT /users HTTP/1.1
