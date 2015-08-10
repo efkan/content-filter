@@ -1,4 +1,4 @@
-# Content-filter
+# Content-filter <span>[![Build Status](https://travis-ci.org/efkan/content-filter.svg?branch=master)](https://travis-ci.org/efkan/content-filter)</span>
 The module returns an Express.js **middleware** that is used for to examine URL and HTML body contents of the request (by using body-parser) to block requests that have forbidden characters. In this way, `content-filter` protects your applications from NoSQL (like MongoDB) injection on Node.js . 
 
 For more informations;<br>
