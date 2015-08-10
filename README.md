@@ -17,7 +17,7 @@ There a copule of risc when developing a project using NoSQL databases like Mong
 If a malicious user tries to hack your database it's not so hard for any body. For instance you use `/users/123` as URL to get information and show to a user whose `id` is `123`. However someone tries `/users/%7B%24ne%3Anull%7D` as URL to get user informations after logged on your system the URL means `/users/{$ne:null}` and likely your server sends the all users from your user collection.
 
 <b>Content risc</b><br>
-If you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which name is [mongo-sanitize][1]. However my aim is to generate a module that wraps all codes without any special labor. So I've written this easy module.
+If you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which name is [mongo-sanitize][1]. However I've wanted a tool to sanitize the data by wrapping all codes without any special labor. Then I wrote this easy tool.
 
 How to work
 -------------
