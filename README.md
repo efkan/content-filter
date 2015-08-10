@@ -47,7 +47,7 @@ By the above default using, content-filter checks the request URL for `{` and `$
 For example, content-filter checks "/users", _id", "name", "address", "street", "province" and "$ne" values from the below request. "/users" is examined for `{` and `$` characters and it passes. The others are examined for `$` character and return 403 status with an error message because of "$ne" expression and hereby **content-filter provide a reliable security for MongoDB applications**.
 
 ```
-PUT /users HTTP/1.1
+GET /users HTTP/1.1
 Host: webaddress.com
 Content-Type: application/json
 
