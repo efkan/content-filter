@@ -70,7 +70,7 @@ Use this option to set filter data structure types of Javascript. Content-filter
 
 **urlBlackList**:<br> 
 Use this option to configure URL black list elements (ASCII codes) and to stop the filtering the URL content. The module checks `%7B` for `{` and `%24` for `$` as default considering MongoDB security.<br>
-<small>req.originalUrl data contains req.query object</small><br>
+Also `urlBlackList` scope contains `req.query` object.<br>
 
  Removing url filtering;<br>
  `app.use(filter({urlBlackList:[null]}))` <br>
