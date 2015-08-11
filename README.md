@@ -118,7 +118,7 @@ Use this option to select method which will have been filtered and to stop the c
  Configuring to filter only for `POST`, `PUT` and `DELETE` methods;<br>
  `app.use(filter({methodList:['POST', 'PUT', 'DELETE']}))` <br>
 
-**Giving combine options:**<br>
+**combining options:**<br>
  ```app.use(filter({urlBlackList:['%24ne'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE']}))```
  or 
  ```
