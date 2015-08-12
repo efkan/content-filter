@@ -1,7 +1,7 @@
 {
   "name": "content-filter",
-  "version": "1.0.10",
-  "description": "Filters content of a given HTML request. In this way helps to protect NoSQL databases from hash-injection",
+  "version": "1.0.11",
+  "description": '<span><a href="https://travis-ci.org/efkan/content-filter"><img src="https://travis-ci.org/efkan/content-filter.svg?branch=master" class="badge"></a></span><br>Filters content of a given HTML request. In this way helps to protect NoSQL databases from hash-injection',
   "main": "index.js",
   "keywords": [
     "mongodb",
