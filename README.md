@@ -1,9 +1,11 @@
-# Content-filter <span>[![Build Status](https://travis-ci.org/efkan/content-filter.svg?branch=master)](https://travis-ci.org/efkan/content-filter)</span>
+# Content-filter 
+<span>[![Build Status](https://travis-ci.org/efkan/content-filter.svg?branch=master)](https://travis-ci.org/efkan/content-filter)</span>
+
 The module returns an Express.js **middleware** that is used for to examine URL and HTML body contents of the request (by using body-parser) to block requests that have forbidden characters. In this way, `content-filter` protects your applications from NoSQL (like MongoDB) injection on Node.js . 
 
-For more informations;<br>
-https://www.owasp.org/index.php/Testing_for_NoSQL_injection<br>
-http://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb.html
+What are the risks;<br>
+<a href='https://www.owasp.org/index.php/Testing_for_NoSQL_injection'>https://www.owasp.org/index.php/Testing_for_NoSQL_injection</a><br>
+<a href='http://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb.html'>http://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb.html</a>
 
 Not depends on MongoDB
 ----------------------
@@ -11,12 +13,12 @@ Also you can use with purpose of filtering for anything.
 
 Motivation
 -----------
-There a copule of risc when developing a project using NoSQL databases like MongoDB. The first one about URL and the other one about req.body .(sent data by an allowed user)
+There a copule of risk when developing a project using NoSQL databases like MongoDB. The first one about URL and the other one about content of `req.body`. (sent data by an allowed user)
 
-<b>Allowed user risc</b><br>
+<b>Allowed user risk</b><br>
 If a malicious user tries to hack your database it's not so hard for any body. For instance you use `/users/123` as URL to get information and show to a user whose `id` is `123`. However someone tries `/users/%7B%24ne%3Anull%7D` as URL to get user informations after logged on your system the URL means `/users/{$ne:null}` and likely your server sends the all users from your user collection.
 
-<b>Content risc</b><br>
+<b>Content risk</b><br>
 If you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which name is [mongo-sanitize][1]. However I've wanted a tool to sanitize the data by wrapping all codes without any special labor. Then I wrote this easy tool.
 
 How to work
@@ -150,6 +152,9 @@ Performance test results
  *Options:* typeofList has been set as ["object", "function","string"]<br>
  *Result:* Total filtered string length is 170814 in 1 ms = 0.001 sec<br>
 
+ **Conclusion** <br>
+ This is a configurable and convenient tool to filter data which doesn't have so deep nested objects.
+
  **Decription of object levels**
  ```
 {
@@ -163,9 +168,6 @@ Performance test results
 	}	
 }
  ```
-
- **Conclusion** <br>
- This is a configurable and convenient tool to filter data which doesn't have so deep nested objects.
 
 
 [1]:https://github.com/vkarpov15/mongo-sanitize
