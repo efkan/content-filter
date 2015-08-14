@@ -1,6 +1,6 @@
 {
   "name": "content-filter",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "<span><a href='https://travis-ci.org/efkan/content-filter'><img src='https://travis-ci.org/efkan/content-filter.svg?branch=master' class=badge></a></span><br>Helps to protect NoSQL databases from hash-injection by filtering HTML content.",
   "main": "index.js",
   "keywords": [
