@@ -33,14 +33,14 @@ Guide
 ```
 var express = require('express')
 var bodyParser = require('body-parser')
-var filter = require('content-filter')
+var filter = require('content-filter')  /* STEP-1 */
 
 var app = express()
 
-app.use(bodyParser.json({limit: '5mb'})) 
-app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }))
+app.use(bodyParser.json()) 
+app.use(bodyParser.urlencoded({ extended: true}))
 
-app.use(filter());
+app.use(filter()); /* STEP-2 and that's all */
 ```
 By the above default using, content-filter checks the request URL for `{` and `$` characters and functions and objects of the html body data property names for `$` character coming by `GET`, `POST`, `PUT` and `DELETE` methods. 
 

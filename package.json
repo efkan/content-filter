@@ -5,13 +5,16 @@
   "main": "index.js",
   "keywords": [
     "mongodb",
+    "mongodb security",
+    "mongo security",
+    "nosql security",
     "content-filter",
+    "filtering",
     "sanitize",
     "query",
     "selector",
     "injection",
-    "hash-injection",
-    "filetring"
+    "hash-injection"
   ],
   "author": {
     "name": "efkan"
