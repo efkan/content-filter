@@ -1,6 +1,6 @@
 {
   "name": "content-filter",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "A multipurpose content-filter. Filters coming HTML content for any character, character set or word. And in this way, protects NoSQL databases from hash-injection attempts.",
   "main": "index.js",
   "keywords": [
