@@ -145,7 +145,7 @@ Performance test results
 
  **Test1** <br>
  *Data:* Consists of nested objects which have 5 objects depth of the total. There were 9 elements at level-1, 11 elements at level-2, 4 elements at level-3, 2 elements at level-4 and 2 elements at level-5 too. URL data length is not important. <br> 
- *Result:* 1 ms <= result < 15 ms  &nbsp;  ( 1 ms = 0.001 sec )<br><br>
+ *Result:* 1 ms <= result < 15 ms  &nbsp;  ( 1 ms = 0.001 sec )<br>
 
  **Test2** <br>
  *Data:* Consists of nested objects which have 2 objects depth of the total. 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168275. Other one contains a string its length 2365.<br>
