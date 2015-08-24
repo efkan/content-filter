@@ -44,7 +44,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 app.use(filter()); /* STEP-2 and that's all */
 ```
-By the above default using, content-filter checks the request URL for `{` and `$` characters and functions and objects of the html body data property names for `$` character coming by `GET`, `POST`, `PUT` and `DELETE` methods. 
+By the above default using, content-filter checks the request URL for `{` and `$` characters and functions and objects of the html body data *property names* for `$` character coming by `GET`, `POST`, `PUT` and `DELETE` methods. 
 
 For example, content-filter checks "/users", _id", "$ne", "address", "street" and "province" values from the below request. "/users" is examined for `{` and `$` characters and it passes. The others are examined for `$` character and return 403 status with an error message because of "$ne" expression and hereby **content-filter provide a reliable security for MongoDB applications**.
 
@@ -62,7 +62,7 @@ Content-Type: application/json
 }	
 ```
 
-There are several options is used for to configure the module.
+There are several options are used for to configure the module.
 
 **typeofList**:<br> 
 Use this option to set filter data structure types of Javascript. Content-filter able to check every data type (object, function, number, string, boolean and symbol) to filter. Because an application cannot make a decision whether an expression is an innocent or a malicious. But a developer can. Content-filter checks `object` and `function` types as default considering MongoDB security. 
@@ -145,15 +145,15 @@ Performance test results
 
  **Test1** <br>
  *Data:* Consists of nested objects which have 5 objects depth of the total. There were 9 elements at level-1, 11 elements at level-2, 4 elements at level-3, 2 elements at level-4 and 2 elements at level-5 too. URL data length is not important. <br> 
- *Result:* 1 ms < result < 15 ms  &nbsp;  ( 1 ms = 0.001 sec )<br><br>
+ *Result:* 1 ms <= result < 15 ms  &nbsp;  ( 1 ms = 0.001 sec )<br><br>
 
  **Test2** <br>
  *Data:* Consists of nested objects which have 2 objects depth of the total. 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168275. Other one contains a string its length 2365.<br>
  *Options:* typeofList has been set as ["object", "function","string"]<br>
- *Result:* Total filtered string length is 170814 in 1 ms = 0.001 sec<br>
+ *Result:* I've run more than one time and the results were stable. Total filtered string length is 170814 in 1 ms = 0.001 sec<br>
 
  **Conclusion** <br>
- This is a configurable and convenient tool to filter data which doesn't have so deep nested objects.
+ This is a configurable and convenient tool to filter data.
 
  **Decription of object levels**
  ```
