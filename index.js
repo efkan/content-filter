@@ -24,8 +24,10 @@ module.exports = function filter(options) {
 			}
 		}
 		if(found) return res.status(403).send(urlMessage + found)
-	  /* Examining the req.body object */
-		if(Object.keys(req.body).length) {
+
+	  /* Examining the req.body object 
+			 If there is a req.body object it must be checked */
+		if(req.body && Object.keys(req.body).length) {
 			// console.log("start time: " + new Date().valueOf())	            
 			jsonToString(req.body, typeofList, checkNames, function(str){                       
 				for(var i=0;i<bodyBlackList.length;i++){
