@@ -150,7 +150,7 @@ Performance test results
  **Test2** <br>
  *Data:* Consists of nested objects which have 2 objects depth of the total. 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168275. Other one contains a string its length 2365.<br>
  *Options:* typeofList has been set as ["object", "function","string"]<br>
- *Result:* I've run more than one time and the results were stable. Total filtered string length is 170814 in 1 ms = 0.001 sec<br>
+ *Result:* I've run more than one time and the results were stable. Total filtered string length is 170814 in 1 ms <= 0.001 sec<br>
 
  **Conclusion** <br>
  This is a configurable and convenient tool to filter data.
