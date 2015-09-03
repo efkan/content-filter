@@ -139,7 +139,7 @@ Use this option to select method which will have been filtered and to stop the c
 Performance test results
 --------------------------
 
- I've used [process.hrtime()][2] function to calculate elapsed time for my tests. <br><br>
+ I've used [process.hrtime()][2] to calculate elapsed time for my tests. <br><br>
  **Test environment:** Intel 3 Ghz Dual-Core CPU and 4 GB RAM<br>
  **Action:** POST <br>
 
