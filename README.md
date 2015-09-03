@@ -139,10 +139,9 @@ Use this option to select method which will have been filtered and to stop the c
 Performance test results
 --------------------------
 
- I've used <a href="https://nodejs.org/api/process.html#process_process_hrtime"></a>process.hrtime() function to calculate elapsed time for my tests. <br>
+ I've used [process.hrtime()][2] function to calculate elapsed time for my tests. <br><br>
  **Test environment:** Intel 3 Ghz Dual-Core CPU and 4 GB RAM<br>
  **Action:** POST <br>
- **Options:** Default options <br>
 
  **Test1** <br>
  *Data:* Consists of nested objects which have 5 objects depth of the total. There were 9 elements at level-1, 11 elements at level-2, 4 elements at level-3, 2 elements at level-4 and 2 elements at level-5 too. URL data length is not important. <br> 
@@ -190,7 +189,7 @@ Performance test results
 **Credit:** http://blog.tompawlak.org/measure-execution-time-nodejs-javascript
 
 [1]:https://github.com/vkarpov15/mongo-sanitize
-
+[2]:https://nodejs.org/api/process.html#process_process_hrtime
 
 
 
