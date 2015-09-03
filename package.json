@@ -1,6 +1,6 @@
 {
   "name": "content-filter",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "A multipurpose content-filter. Filters coming HTML content for any character, character set or word. And in this way, `content-filter` provides protection against NoSQL (like MongoDB) injection attacks on Node.js ",
 
   "main": "index.js",

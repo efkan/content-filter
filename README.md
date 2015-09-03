@@ -81,7 +81,7 @@ Also `urlBlackList` scope contains `req.query` object.<br>
  `app.use(filter({urlBlackList:['%24ne']}))` <br>
 
 **urlMessage**:<br>
-Use this option to change the default request blocking message to see by the user. <br>
+Use this option to change the default request blocking message to show to the user. <br>
  `app.use(filter({urlMessage: 'A forbidden character set has been found in URL: '}))` <br>
 
 **bodyBlackList**:<br>
@@ -112,7 +112,8 @@ By the way, the above method is wrong. Instaed that, Passport.js and `req.user._
 
 
 **bodyMessage**:<br>
-Use this option to change the default request blocking message to see by the user.<br> 
+Use this option to change the default request blocking message to show to the user.<br> 
+ `app.use(filter({bodyMessage: 'A forbidden string has been found in form data: '}))` <br>
 
 **methodList**:<br>
 Use this option to select method which will have been filtered and to stop the checking any method. The module checks for GET, POST, PUT and DELETE methods as default.  <br>
@@ -124,7 +125,7 @@ Use this option to select method which will have been filtered and to stop the c
  ```app.use(filter({urlBlackList:['%24ne'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE']}))```
  or 
  ```
- var filterConf = {
+ var filterOptions = {
  	urlBlackList:['%24ne'], 
  	urlMessage: 'A forbidden character set has been found in URL: ',
  	bodyBlackList:['$ne'], 
@@ -138,25 +139,42 @@ Use this option to select method which will have been filtered and to stop the c
 Performance test results
 --------------------------
 
- I've used real data for my tests. <br>
+ I've used <a href="https://nodejs.org/api/process.html#process_process_hrtime"></a>process.hrtime() function to calculate elapsed time for my tests. <br>
  **Test environment:** Intel 3 Ghz Dual-Core CPU and 4 GB RAM<br>
  **Action:** POST <br>
  **Options:** Default options <br>
 
  **Test1** <br>
  *Data:* Consists of nested objects which have 5 objects depth of the total. There were 9 elements at level-1, 11 elements at level-2, 4 elements at level-3, 2 elements at level-4 and 2 elements at level-5 too. URL data length is not important. <br> 
- *Result:* 1 ms <= result < 15 ms  &nbsp;  ( 1 ms = 0.001 sec )<br>
+ *Options:* Content-filter default options were used.<br>
+ *Result:* Completed at 0.486934th ms = 0.0000486934th sec ( 1 ms = 0.001 sec )<br>
 
  **Test2** <br>
- *Data:* Consists of nested objects which have 2 objects depth of the total. 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168275. Other one contains a string its length 2365.<br>
- *Options:* typeofList has been set as ["object", "function","string"]<br>
- *Result:* I've run more than one time and the results were stable. Total filtered string length is 170814 in 1 ms < 0.001 sec<br>
+ *Data:* Consists of nested objects which have 2 objects depth of the total. 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168275. Other one contains a string its length 2389.<br>
+ *Options:* `typeofList` has been set as `["object", "function","string"]`<br>
+```
+{
+	typeofList: ["object", "function","string"]
+}
+```
+ *Result:* Completed at 0.386673rd ms = 0.0000386673rd sec<br>
+
+ **Test3** <br>
+ *Data:* The same with Test2 data.<br>
+ *Options:* `typeofList` has been set as `["object", "function","string"]` and `bodyBlackList` has been set as `["+8+L"]`<br>
+```
+{
+	typeofList: ["object", "function","string"],
+	bodyBlackList: ["+8+L"]
+}
+```
+ *Result:* Content-filter found the forbidden string which is at 83,225th column at 0.629969th ms = 0.0000629969th sec after the process started. <br>
 
  **Conclusion** <br>
- This is a configurable and convenient tool to filter data.
+ This is a configurable and reliable tool to filter data.
 
  **Decription of object levels**
- ```
+```
 {
 	level1_a: 1,
 	level1_b: 2,
@@ -167,7 +185,12 @@ Performance test results
 		}
 	}	
 }
- ```
+```
 
+**Credit:** http://blog.tompawlak.org/measure-execution-time-nodejs-javascript
 
 [1]:https://github.com/vkarpov15/mongo-sanitize
+
+
+
+

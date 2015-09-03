@@ -10,7 +10,7 @@ module.exports = function filter(options) {
 	var bodyBlackList = options.bodyBlackList || ["$"]
 	var methodList = options.methodList || ["GET", "POST", "PUT", "DELETE"]
 	var urlMessage = options.urlMessage || "A forbidden character set has been found in URL: "
-	var bodyMessage = options.bodyMessage || "A forbidden character has been found in form data: "	
+	var bodyMessage = options.bodyMessage || "A forbidden string has been found in form data: "	
 
 	return function filter(req, res, next) {                       
 		/* Only examine the valid methodList */
@@ -28,7 +28,9 @@ module.exports = function filter(options) {
 	  /* Examining the req.body object 
 			 If there is a req.body object it must be checked */
 		if(req.body && Object.keys(req.body).length) {
-			// console.log("start time: " + new Date().valueOf())	            
+			// // hrstart is used for to calculate the elapsed time
+			// // https://nodejs.org/api/process.html#process_process_hrtime
+			// var hrstart = process.hrtime() 
 			jsonToString(req.body, typeofList, checkNames, function(str){                       
 				for(var i=0;i<bodyBlackList.length;i++){
 					if(str.indexOf(bodyBlackList[i]) != -1) {
@@ -36,8 +38,10 @@ module.exports = function filter(options) {
 						break
 					}
 				}			
+				// // hrend is used for to calculate the elapsed time
+				// var hrend = process.hrtime(hrstart)
+				// console.log("Execution time (hr): %ds %dms", hrend[0], hrend[1]/1000000)	           
 				if(found) return res.status(403).send(bodyMessage + found)
-				// console.log("end time: " + new Date().valueOf())	           
 				next()
 			})
 		} else {
