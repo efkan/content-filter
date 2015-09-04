@@ -149,7 +149,7 @@ Performance test results
  *Result:* Completed at 0.486934th ms = 0.0000486934th sec ( 1 ms = 0.001 sec )<br>
 
  **Test2** <br>
- *Data:* Consists of nested objects which have 2 objects depth of the total. 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168275. Other one contains a string its length 2389.<br>
+ *Data:* Consists of nested objects which have 2 objects depth of the total. 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168,275. Other one contains a string its length 2,389.<br>
  *Options:* `typeofList` has been set as `["object", "function","string"]`<br>
 ```
 {
@@ -186,10 +186,10 @@ Performance test results
 }
 ```
 
-**Credit:** http://blog.tompawlak.org/measure-execution-time-nodejs-javascript
+**Credit:** [http://blog.tompawlak.org/measure-execution-time-nodejs-javascript][3]
 
 [1]:https://github.com/vkarpov15/mongo-sanitize
 [2]:https://nodejs.org/api/process.html#process_process_hrtime
-
+[3]:http://blog.tompawlak.org/measure-execution-time-nodejs-javascript
 
 
