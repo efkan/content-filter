@@ -1,7 +1,7 @@
 # Content-filter 
 <span>[![Build Status](https://travis-ci.org/efkan/content-filter.svg?branch=master)](https://travis-ci.org/efkan/content-filter)</span>
 
-The module returns an *Express.js middleware* that is used for to examine URL and HTML body contents of the request (by using body-parser) to block requests that have forbidden characters. In this way, `content-filter` provides protection against NoSQL (like MongoDB) injection attacks on Node.js . 
+The module returns an *Express.js middleware* that is used for to examine URL and HTML body contents of the request (by using body-parser) to block requests that have forbidden characters. In this way, `content-filter` protects applications against NoSQL (like MongoDB) injection attacks on Node.js .
 
 What are the risks;<br>
 <a href='https://www.owasp.org/index.php/Testing_for_NoSQL_injection'>https://www.owasp.org/index.php/Testing_for_NoSQL_injection</a><br>
