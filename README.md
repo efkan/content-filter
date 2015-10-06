@@ -19,7 +19,7 @@ There a copule of risk when developing a project using NoSQL databases like Mong
 If a malicious user tries to hack your database it's not so hard for any body. Although it's not the right way, assume you use `/users/123` as URL to get information and show to a user whose `id` is `123`. However someone tries `/users/%7B%24ne%3Anull%7D` as URL to get user informations after logged on your system the URL means `/users/{$ne:null}` and likely your server sends the all users from your user collection.
 
 <b>Content risk</b><br>
-If you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which name is [mongo-sanitize][1]. However I've wanted a tool to sanitize the data by wrapping all codes without any special labor. Then I wrote this easy tool.
+If you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which name is [mongo-sanitize][1]. However I've wanted a tool to sanitize the data by wrapping all codes without any special labor. Therefore I wrote this easy tool.
 
 How to work
 -------------
@@ -46,7 +46,7 @@ app.use(filter()); /* STEP-2 and that's all */
 ```
 By the above default using, content-filter checks the request URL for `{` and `$` characters and functions and objects of the html body data *property names* for `$` character coming by `GET`, `POST`, `PUT` and `DELETE` methods. 
 
-For example, content-filter checks "/users", _id", "$ne", "address", "street" and "province" values from the below request. "/users" is examined for `{` and `$` characters and it passes. The others are examined for `$` character and return 403 status with an error message because of "$ne" expression and hereby **content-filter provide a reliable security for MongoDB applications**.
+For example, content-filter checks "/users", _id", "$ne", "address", "street" and "province" values from the below request. "/users" is examined for `{` and `$` characters and it passes. The others are examined for `$` character and return 403 status with an error message because of "$ne" expression and hereby **content-filter provide a reliable security for MongoDB applications against the injection attacks**.
 
 ```
 PUT /users HTTP/1.1
