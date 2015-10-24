@@ -23,7 +23,7 @@ If you want to check query parameters when you querying the collection there is 
 
 How to work
 -------------
-Content-filter transforms the request URL and body data to a string then searches the forbidden characters.<br>
+Content-filter searches the forbidden characters in the request URL and body data.<br>
 
 
 Guide
