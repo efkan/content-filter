@@ -21,11 +21,6 @@ If a malicious user tries to hack your database it's not so hard for any body. A
 <b>Content risk</b><br>
 If you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which name is [mongo-sanitize][1]. However I've wanted a tool to sanitize the data by wrapping all codes without any special labor. Therefore I wrote this easy tool.
 
-How to work
--------------
-Content-filter searches the forbidden characters in the request URL and body data.<br>
-
-
 Guide
 ---------
 <b>Install</b><br>
