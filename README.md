@@ -30,6 +30,14 @@ Guide
 `npm install content-filter`
 
 <b>Using with Express.js</b>
+
+Just add the following two lines to your code;
+```
+var filter = require('content-filter') 
+app.use(filter());
+```
+
+A sample usage in the code;
 ```
 var express = require('express')
 var bodyParser = require('body-parser')
