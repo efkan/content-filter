@@ -14,11 +14,11 @@ module.exports = function filter(options) {
 
 	return function filter(req, res, next) {                       
 		/* Only examine the valid methodList */
-		if(methodList.indexOf(req.method)==-1) return next()
+		if(methodList.indexOf(req.method)===-1) return next()
 		var found = null
 		/* Examining the URL */
 		for(var i=0;i<urlBlackList.length;i++){ 
-			if(req.originalUrl.indexOf(urlBlackList[i]) != -1) {
+			if(req.originalUrl.indexOf(urlBlackList[i]) !== -1) {
 				found = urlBlackList[i]         
 				break
 			}
@@ -33,7 +33,7 @@ module.exports = function filter(options) {
 			// var hrstart = process.hrtime() 
 			jsonToString(req.body, typeofList, checkNames, function(str){                       
 				for(var i=0;i<bodyBlackList.length;i++){
-					if(str.indexOf(bodyBlackList[i]) != -1) {
+					if(str.indexOf(bodyBlackList[i]) !== -1) {
 						found = bodyBlackList[i]                 
 						break
 					}
@@ -59,9 +59,10 @@ function jsonToString(json, typeofList, checkNames, callback) {
 		for(var i=0;i<keys.length;i++) {
 			// console.log("keys: " + keys)							
 			// console.log("keys.length: " + keys.length)	
-			if(typeofList.indexOf(typeof data[keys[i]]) != -1) {     
+			if(typeofList.indexOf(typeof data[keys[i]]) !== -1) {     
 
-				if(typeof data[keys[i]] == "object") {   
+				// null is an object too
+				if(typeof data[keys[i]] === "object" && data[keys[i]]) {   
 					// console.log("an object has been found: " + data[keys[i]])
 					if(checkNames) { 
 						// if the object is an array get the elements
@@ -76,7 +77,7 @@ function jsonToString(json, typeofList, checkNames, callback) {
 					 * If an object is the latest element of a for loop don't increase. Because `else { level-- }`
 					 * block never works!
 					 ************************************************************************************************/
-					if(i != keys.length-1)	{
+					if(i !== keys.length-1)	{
 						level++			
 						// console.log("level increased - new level: " + level)						
 						// console.log("level increased - number of the keys of the new level: " + Object.keys(data[keys[i]]).length)						
@@ -85,7 +86,7 @@ function jsonToString(json, typeofList, checkNames, callback) {
 				} else {
 					// console.log("else - keys: " + keys)
 					// console.log("else - keys.length: " + keys.length)
-					if(i == keys.length-1) {
+					if(i === keys.length-1) {
 						level--
 						// console.log("level decrease")
 						// console.log("level decrease - data[keys[i]]: " + data[keys[i]])
@@ -93,17 +94,17 @@ function jsonToString(json, typeofList, checkNames, callback) {
 					str += (checkNames)?keys[i]+data[keys[i]]:data[keys[i]]          
 					// console.log("level: " + level)				
 					// console.log("i: " + i)								
-					if(level==0 && i == keys.length-1) {
+					if(level===0 && i === keys.length-1) {
 						// console.log("jsonToString has been completed")
 						callback(str)
 					}
 				}
 
 			} else {
-				if(i == keys.length-1) {
+				if(i === keys.length-1) {
 					level--
 				}				
-				if(level==0 && i == keys.length-1) {
+				if(level===0 && i === keys.length-1) {
 					callback(str)
 				}
 			}
