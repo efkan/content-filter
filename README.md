@@ -6,6 +6,7 @@ Filters coming HTML content for any character, character set or a word and retur
 What are the risks;<br>
 <a href='https://www.owasp.org/index.php/Testing_for_NoSQL_injection'>https://www.owasp.org/index.php/Testing_for_NoSQL_injection</a><br>
 <a href='http://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb.html'>http://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb.html</a>
+<a href='http://blog.websecurify.com/2014/08/attacks-nodejs-and-mongodb-part-to.html'>http://blog.websecurify.com/2014/08/attacks-nodejs-and-mongodb-part-to.html</a>
 
 Not depends on MongoDB
 ----------------------
