@@ -5,7 +5,7 @@ module.exports = function filter(options) {
   options = options || {};
 
   var checkNames = options.checkNames || true
-  var typeofList = options.typeofList || ["object", "function"]
+  var typeList = options.typeList || ["object", "function"]
 	var urlBlackList = options.urlBlackList || ["%7B","%24"]
 	var bodyBlackList = options.bodyBlackList || ["$"]
 	var methodList = options.methodList || ["GET", "POST", "PUT", "DELETE"]
@@ -31,7 +31,7 @@ module.exports = function filter(options) {
 			// // hrstart is used for to calculate the elapsed time
 			// // https://nodejs.org/api/process.html#process_process_hrtime
 			// var hrstart = process.hrtime() 
-			jsonToString(req.body, typeofList, checkNames, function(str){                       
+			jsonToString(req.body, typeList, checkNames, function(str){                       
 				for(var i=0;i<bodyBlackList.length;i++){
 					if(str.indexOf(bodyBlackList[i]) !== -1) {
 						found = bodyBlackList[i]                 
@@ -50,7 +50,7 @@ module.exports = function filter(options) {
 	}
 }
 
-function jsonToString(json, typeofList, checkNames, callback) {	     
+function jsonToString(json, typeList, checkNames, callback) {	     
 
 	var str = "", level = 1;
 	iterative(json)
@@ -59,7 +59,7 @@ function jsonToString(json, typeofList, checkNames, callback) {
 		for(var i=0;i<keys.length;i++) {
 			// console.log("keys: " + keys)							
 			// console.log("keys.length: " + keys.length)	
-			if(typeofList.indexOf(typeof data[keys[i]]) !== -1) {     
+			if(typeList.indexOf(typeof data[keys[i]]) !== -1) {     
 
 				// null is an object too
 				if(typeof data[keys[i]] === "object" && data[keys[i]]) {   

@@ -1,7 +1,7 @@
 # Content-filter 
 <span>[![Build Status](https://travis-ci.org/efkan/content-filter.svg?branch=master)](https://travis-ci.org/efkan/content-filter)</span>
 
-The module returns an *Express.js middleware* that is used for to examine URL and HTML body contents of the request (by using body-parser) to block requests that have forbidden characters. In this way, `content-filter` provides protection against NoSQL (like MongoDB) injection attacks on Node.js .
+Filters coming HTML content for any character, character set or a word and returns an *Express.js middleware*. The middleware examines URL and HTML body contents of the request (by using body-parser) and blocks the request and returns a message if there is a forbidden character. In this way, provides protection against NoSQL (like MongoDB) injection attacks for Node.js applications.
 
 What are the risks;<br>
 <a href='https://www.owasp.org/index.php/Testing_for_NoSQL_injection'>https://www.owasp.org/index.php/Testing_for_NoSQL_injection</a><br>
@@ -20,7 +20,7 @@ If a malicious user tries to hack your database it's not so hard for any body. A
 
 <b>Content risk</b><br>
 Malicous users might embed unwanted expression into the `req.body` object as the URL risk.
-If you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which name is [mongo-sanitize][1]. 
+If you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which is named as [mongo-sanitize][1]. 
 <br><br>
 However I've wanted a tool to sanitize the data by wrapping all codes without any special labor. Therefore I wrote this easy tool.
 
@@ -70,11 +70,11 @@ Content-Type: application/json
 
 There are several options are used for to configure the module.
 
-**typeofList**:<br> 
+**typeList**:<br> 
 Use this option to set filter data structure types of Javascript. Content-filter able to check every data type (object, function, number, string, boolean and symbol) to filter. Because an application cannot make a decision whether an expression is an innocent or a malicious. But a developer can. Content-filter checks `object` and `function` types as default considering MongoDB security. 
 
  Setting to check only `string` data types;<br>
- `app.use(filter({typeofList:['string']}))` <br>
+ `app.use(filter({typeList:['string']}))` <br>
 
 **urlBlackList**:<br> 
 Use this option to configure URL black list elements (ASCII codes) and to stop the filtering the URL content. The module checks `%7B` for `{` and `%24` for `$` as default considering MongoDB security.<br>
@@ -102,7 +102,7 @@ Use this option to configure body black list elements and to stop the filtering 
 **checkNames**:<br>
 Use this option to include property names of the objects -that will have been checked- to filter. The option is `true` as default.
 
-Assume there is a request body object like the following which comes from a user form to delete selected goods from `shoppingCarts` collection by user _id value from our MongoDB. If `checkNames` option is set as `false` content-filter checks `"abcd"` and `10` values if *typeofList* contains 'string' and 'number' values. When `checkNames` option is `true`, content-filter checks `id`, `$ne`, `"abcd"`, `count` and `10` values under the same conditions.
+Assume there is a request body object like the following which comes from a user form to delete selected goods from `shoppingCarts` collection by user _id value from our MongoDB. If `checkNames` option is set as `false` content-filter checks `"abcd"` and `10` values if *typeList* contains 'string' and 'number' values. When `checkNames` option is `true`, content-filter checks `id`, `$ne`, `"abcd"`, `count` and `10` values under the same conditions.
 
 ```
 { 
@@ -156,20 +156,20 @@ Performance test results
 
  **Test2** <br>
  *Data:* Consists of nested objects which have 2 objects depth of the total. 11 elements at level-1 and 4 elements at level-2. Level-1 has two long fileds. The first one contain a picture data as base64 string and its length is 168,275. Other one contains a string its length 2,389.<br>
- *Options:* `typeofList` has been set as `["object", "function","string"]`<br>
+ *Options:* `typeList` has been set as `["object", "function","string"]`<br>
 ```
 {
-	typeofList: ["object", "function","string"]
+	typeList: ["object", "function","string"]
 }
 ```
  *Result:* Completed at 0.386673rd ms = 0.0000386673rd sec<br>
 
  **Test3** <br>
  *Data:* The same with Test2 data.<br>
- *Options:* `typeofList` has been set as `["object", "function","string"]` and `bodyBlackList` has been set as `["+8+L"]`<br>
+ *Options:* `typeList` has been set as `["object", "function","string"]` and `bodyBlackList` has been set as `["+8+L"]`<br>
 ```
 {
-	typeofList: ["object", "function","string"],
+	typeList: ["object", "function","string"],
 	bodyBlackList: ["+8+L"]
 }
 ```
