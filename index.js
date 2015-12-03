@@ -4,8 +4,8 @@ module.exports = function filter(options) {
 
   options = options || {};
 
-  var checkNames = options.checkNames || true
-  var typeList = options.typeList || ["object", "function"]
+	var checkNames = options.checkNames || true
+	var typeList = options.typeList || ["object", "function"]
 	var urlBlackList = options.urlBlackList || ["%7B","%24"]
 	var bodyBlackList = options.bodyBlackList || ["$"]
 	var methodList = options.methodList || ["GET", "POST", "PUT", "DELETE"]
@@ -25,8 +25,7 @@ module.exports = function filter(options) {
 		}
 		if(found) return res.status(403).send(urlMessage + found)
 
-	  /* Examining the req.body object 
-			 If there is a req.body object it must be checked */
+		/* Examining the req.body object If there is a req.body object it must be checked */
 		if(req.body && Object.keys(req.body).length) {
 			// // hrstart is used for to calculate the elapsed time
 			// // https://nodejs.org/api/process.html#process_process_hrtime
@@ -56,13 +55,14 @@ function jsonToString(json, typeList, checkNames, callback) {
 	iterative(json)
 	function iterative(data) {
 		var keys = Object.keys(data)
-        if(keys.length === 0) {callback(""); }
+		// Ari [fixing]: Never callback if keys.lenght == 0 
+        	if(keys.length === 0) callback("")
 		for(var i=0;i<keys.length;i++) {
 			// console.log("keys: " + keys)							
 			// console.log("keys.length: " + keys.length)	
 			if(typeList.indexOf(typeof data[keys[i]]) !== -1) {     
 
-				// null is an object too
+				// Carlos [fixing]: null is an object too. So check the value `data[keys[i]]`
 				if(typeof data[keys[i]] === "object" && data[keys[i]]) {   
 					// console.log("an object has been found: " + data[keys[i]])
 					if(checkNames) { 
