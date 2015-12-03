@@ -1,6 +1,6 @@
 {
   "name": "content-filter",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "A multipurpose content-filter. Provides protection against NoSQL (like MongoDB) injection attacks on Node.js.",
   "main": "index.js",
   "keywords": [
