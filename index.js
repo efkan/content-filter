@@ -56,6 +56,7 @@ function jsonToString(json, typeList, checkNames, callback) {
 	iterative(json)
 	function iterative(data) {
 		var keys = Object.keys(data)
+        if(keys.length === 0) {callback(""); }
 		for(var i=0;i<keys.length;i++) {
 			// console.log("keys: " + keys)							
 			// console.log("keys.length: " + keys.length)	
