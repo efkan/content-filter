@@ -30,7 +30,9 @@ Guide
 <b>Install</b><br>
 `npm install content-filter`
 
-<small><b>Note:</b> The package doesn't contain a `body-parser` library. So, the library should be added the project to use `content-filter`.</small>
+<small>
+<b>Note:</b> The package doesn't contain `body-parser` library. So, the library should be added the project to use `content-filter`.<br> `npm install body-parser --save`
+</small>
 
 <b>Using with Express.js</b>
 
