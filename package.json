@@ -1,13 +1,18 @@
 {
   "name": "content-filter",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "A multipurpose content-filter. Provides protection against NoSQL (like MongoDB) injection attacks on Node.js.",
   "main": "index.js",
   "keywords": [
     "mongodb",
     "mongodb security",
     "mongo security",
+    "mongo protector",
+    "mongodb protector",
+    "mongodb protection",
+    "nosql protection",
     "nosql security",
+    "nosql injection",
     "content filter",
     "content filtering",
     "content-filter",
@@ -37,5 +42,9 @@
   "_id": "content-filter@1.0.4",
   "scripts": {},
   "_shasum": "72cf766f427999269e2a421b02a2b87b626b95c2",
-  "_from": "content-filter@*"
+  "_from": "content-filter@*",
+  "devDependencies": {
+    "babel-eslint": "^5.0.0-beta6",
+    "eslint": "^1.10.3"
+  }
 }

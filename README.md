@@ -1,4 +1,4 @@
-# Content-filter 
+# Content-filter
 <span>[![Build Status](https://travis-ci.org/efkan/content-filter.svg?branch=master)](https://travis-ci.org/efkan/content-filter)</span>
 
 Filters coming HTML content for any character, character set or a word and returns an *Express.js middleware*. The middleware examines URL and HTML body contents of the request (by using body-parser) and blocks the request and returns a message if there is a forbidden character. In this way, provides protection against NoSQL (like MongoDB) injection attacks for Node.js applications.
@@ -8,7 +8,7 @@ What are the risks;<br>
 <a href='http://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb.html'>http://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb.html</a>
 <a href='http://blog.websecurify.com/2014/08/attacks-nodejs-and-mongodb-part-to.html'>http://blog.websecurify.com/2014/08/attacks-nodejs-and-mongodb-part-to.html</a>
 
-Not depends on MongoDB
+Not depend on MongoDB
 ----------------------
 You can use with purpose of filtering for anything. Also you can filter only URL or body data.
 
@@ -21,7 +21,7 @@ If a malicious user tries to hack your database it's not so hard for any body. A
 
 <b>Content risk</b><br>
 Malicous users might embed unwanted expression into the `req.body` object as the URL risk.
-If you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which is named as [mongo-sanitize][1]. 
+If you want to check query parameters when you querying the collection there is a beautiful and lightweight solution which is named as [mongo-sanitize][1].
 <br><br>
 However I've wanted a tool to sanitize the data by wrapping all codes without any special labor. Therefore I wrote this easy tool.
 
@@ -30,11 +30,13 @@ Guide
 <b>Install</b><br>
 `npm install content-filter`
 
+<small><b>Note:</b> The package doesn't contain a `body-parser` library. So, the library should be added the project to use `content-filter`.</small>
+
 <b>Using with Express.js</b>
 
 Just add the following two lines to your code;
 ```
-var filter = require('content-filter') 
+var filter = require('content-filter')
 app.use(filter());
 ```
 
@@ -46,12 +48,12 @@ var filter = require('content-filter')  /* STEP-1 */
 
 var app = express()
 
-app.use(bodyParser.json()) 
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 
 app.use(filter()); /* STEP-2 and that's all */
 ```
-By the above default using, content-filter checks the request URL for `{` and `$` characters and functions and objects of the html body data *property names* for `$` character coming by `GET`, `POST`, `PUT` and `DELETE` methods. 
+By the above default using, content-filter checks the request URL for `{` and `$` characters and functions and objects of the html body data *property names* for `$` character coming by `GET`, `POST`, `PUT` and `DELETE` methods.
 
 For example, content-filter checks "/users", _id", "$ne", "address", "street" and "province" values from the below request. "/users" is examined for `{` and `$` characters and it passes. The others are examined for `$` character and return 403 status with an error message because of "$ne" expression and hereby **content-filter provide a reliable security for MongoDB applications against the injection attacks**.
 
@@ -66,24 +68,24 @@ Content-Type: application/json
 	"street": "Raising Road St.",
 	"province": "New Hampshire",
   }
-}	
+}
 ```
 
 There are several options are used for to configure the module.
 
-**typeList**:<br> 
-Use this option to set filter data structure types of Javascript. Content-filter able to check every data type (object, function, number, string, boolean and symbol) to filter. Because an application cannot make a decision whether an expression is an innocent or a malicious. But a developer can. Content-filter checks `object` and `function` types as default considering MongoDB security. 
+**typeList**:<br>
+Use this option to set filter data structure types of Javascript. Content-filter able to check every data type (object, function, number, string, boolean and symbol) to filter. Because an application cannot make a decision whether an expression is an innocent or a malicious. But a developer can. Content-filter checks `object` and `function` types as default considering MongoDB security.
 
  Setting to check only `string` data types;<br>
  `app.use(filter({typeList:['string']}))` <br>
 
-**urlBlackList**:<br> 
+**urlBlackList**:<br>
 Use this option to configure URL black list elements (ASCII codes) and to stop the filtering the URL content. The module checks `%7B` for `{` and `%24` for `$` as default considering MongoDB security.<br>
 Also `urlBlackList` scope contains `req.query` object.<br>
 
  Removing url filtering;<br>
  `app.use(filter({urlBlackList:[null]}))` <br>
- 
+
  Configuring to filter only for `$ne` characters;<br>
  `app.use(filter({urlBlackList:['%24ne']}))` <br>
 
@@ -96,7 +98,7 @@ Use this option to configure body black list elements and to stop the filtering 
 
  Removing body filtering;<br>
  `app.use(filter({bodyBlackList:[null]}))` <br>
- 
+
  Configuring to filter only for `$ne` characters;<br>
  `app.use(filter({bodyBlackList:['$ne']}))` <br>
 
@@ -106,7 +108,7 @@ Use this option to include property names of the objects -that will have been ch
 Assume there is a request body object like the following which comes from a user form to delete selected goods from `shoppingCarts` collection by user _id value from our MongoDB. If `checkNames` option is set as `false` content-filter checks `"abcd"` and `10` values if *typeList* contains 'string' and 'number' values. When `checkNames` option is `true`, content-filter checks `id`, `$ne`, `"abcd"`, `count` and `10` values under the same conditions.
 
 ```
-{ 
+{
 	_id: { $ne: "abcd" },
 	count: 10
 }
@@ -115,11 +117,11 @@ Assume there is a request body object like the following which comes from a user
 shoppingCarts.delete({ _id: req.body._id })
 ```
 
-By the way, the above method is wrong. Instaed that, Passport.js and `req.user._id` object could be used.<br> 
+By the way, the above method is wrong. Instaed that, Passport.js and `req.user._id` object could be used.<br>
 
 
 **bodyMessage**:<br>
-Use this option to change the default request blocking message to show to the user.<br> 
+Use this option to change the default request blocking message to show to the user.<br>
  `app.use(filter({bodyMessage: 'A forbidden string has been found in form data: '}))` <br>
 
 **methodList**:<br>
@@ -130,12 +132,12 @@ Use this option to select method which will have been filtered and to stop the c
 
 **combining options:**<br>
  ```app.use(filter({urlBlackList:['%24ne'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE']}))```
- or 
+ or
  ```
  var filterOptions = {
- 	urlBlackList:['%24ne'], 
+ 	urlBlackList:['%24ne'],
  	urlMessage: 'A forbidden character set has been found in URL: ',
- 	bodyBlackList:['$ne'], 
+ 	bodyBlackList:['$ne'],
  	bodyMessage: 'A forbidden character has been found in form data: ',
  	methodList:['POST', 'PUT', 'DELETE']
  }
@@ -151,7 +153,7 @@ Performance test results
  **Action:** POST <br>
 
  **Test1** <br>
- *Data:* Consists of nested objects which have 5 objects depth of the total. There were 9 elements at level-1, 11 elements at level-2, 4 elements at level-3, 2 elements at level-4 and 2 elements at level-5 too. URL data length is not important. <br> 
+ *Data:* Consists of nested objects which have 5 objects depth of the total. There were 9 elements at level-1, 11 elements at level-2, 4 elements at level-3, 2 elements at level-4 and 2 elements at level-5 too. URL data length is not important. <br>
  *Options:* Content-filter default options were used.<br>
  *Result:* Completed at 0.486934th ms = 0.0000486934th sec ( 1 ms = 0.001 sec )<br>
 
@@ -189,7 +191,7 @@ Performance test results
 		level2_b: {
 			level3_a: "The level is three",
 		}
-	}	
+	}
 }
 ```
 
@@ -198,5 +200,3 @@ Performance test results
 [1]:https://github.com/vkarpov15/mongo-sanitize
 [2]:https://nodejs.org/api/process.html#process_process_hrtime
 [3]:http://blog.tompawlak.org/measure-execution-time-nodejs-javascript
-
-
