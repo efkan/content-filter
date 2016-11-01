@@ -84,18 +84,17 @@ _Note: To filter form data object for a string 'object' parameter must be found 
  `app.use(filter({typeList:['object','string']}))`<br>
 
 **urlBlackList**:<br>
-Use this option to configure URL black list elements (ASCII codes) and to stop the filtering the URL content. The module checks `%7B` for `{` and `%24` for `$` as default considering MongoDB security.<br>
-Also `urlBlackList` scope contains `req.query` object.<br>
+Use this option to configure URL black list elements and to stop the filtering the URL content. The module checks `{` and `$` as default considering MongoDB security. Also `urlBlackList` scope contains `req.query` object. At the same time GET method requests are evaluated by using urlBlackList.<br>
 
-_Note: At the same time GET method requests are evaluated by using urlBlackList_
+_Note: Ascii code must be used for non-english and specific characters like space. (**`%20`** must be used instead of **space** - [more information](http://www.w3schools.com/tags/ref_urlencode.asp))<br>_
 
  Removing url filtering;<br>
  `app.use(filter({urlBlackList:[null]}))` <br>
 
- Configuring to filter only for `$ne` characters;<br>
- `app.use(filter({urlBlackList:['%24ne']}))` <br>
+ Configuring the filter only for `$ne` characters;<br>
+ `app.use(filter({urlBlackList:['$ne']}))` <br>
  
- Configuring to filter several words;<br>
+ Configuring the filter for several words;<br>
  `app.use(filter({urlBlackList:['word1', 'word2']}))` <br>
 
 **urlMessage**:<br>
