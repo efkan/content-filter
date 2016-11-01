@@ -9,6 +9,8 @@ module.exports = function filter(options) {
 	var methodList = options.methodList || ['GET', 'POST', 'PUT', 'DELETE'];
 	var urlMessage = options.urlMessage || 'A forbidden character set has been found in URL: ';
 	var bodyMessage = options.bodyMessage || 'A forbidden string has been found in form data: ';
+	var caseSensitive = (options.caseSensitive === false) ? false : true;
+
 
 	return function filter(req, res, next) {
 		/* Only examine the valid methodList */
@@ -17,10 +19,21 @@ module.exports = function filter(options) {
 		}
 		var found = null;
 		/* Examining the URL */
-		for (var i = 0; i < urlBlackList.length; i++){
-			if (req.originalUrl.indexOf(urlBlackList[i]) !== -1) {
-				found = urlBlackList[i];
-				break;
+		if (caseSensitive) {
+			for (var i = 0; i < urlBlackList.length; i++){
+				if (req.originalUrl.indexOf(urlBlackList[i]) !== -1) {
+					found = urlBlackList[i];
+					break;
+				}
+			}
+		} else {
+			/* If caseSensitive is `false` convert the originalURL value and bodyBlackList items into lowercase strings then examine them */
+			var url = req.originalUrl.toLowerCase();
+			for (var i = 0; i < urlBlackList.length; i++){
+				if (url.indexOf(urlBlackList[i].toLowerCase()) !== -1) {
+					found = urlBlackList[i];
+					break;
+				}
 			}
 		}
 		if (found) {
@@ -33,10 +46,22 @@ module.exports = function filter(options) {
 			// // https://nodejs.org/api/process.html#process_process_hrtime
 			// var hrstart = process.hrtime()
 			jsonToString(req.body, typeList, checkNames, function(str){
-				for (var i = 0; i < bodyBlackList.length; i++){
-					if (str.indexOf(bodyBlackList[i]) !== -1) {
-						found = bodyBlackList[i];
-						break;
+				/* If caseSensitive is `true` search for bodyBlackList items in combined body string */
+				if (caseSensitive) {
+					for (var i = 0; i < bodyBlackList.length; i++){
+						if (str.indexOf(bodyBlackList[i]) !== -1) {
+							found = bodyBlackList[i];
+							break;
+						}
+					}
+				} else {
+					/* If caseSensitive is `false` convert the string and bodyBlackList items into lowercase strings then examine them */
+					str = str.toLowerCase()
+					for (var i = 0; i < bodyBlackList.length; i++){
+						if (str.indexOf(bodyBlackList[i].toLowerCase()) !== -1) {
+							found = bodyBlackList[i];
+							break;
+						}
 					}
 				}
 				// // hrend is used for to calculate the elapsed time
