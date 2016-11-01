@@ -4,7 +4,7 @@ module.exports = function filter(options) {
 
 	var checkNames = options.checkNames || true;
 	var typeList = options.typeList || ['object', 'function', 'string'];
-	var urlBlackList = options.urlBlackList || ['%7B','%24'];
+	var urlBlackList = options.urlBlackList || ['$','{'];
 	var bodyBlackList = options.bodyBlackList || ['$'];
 	var methodList = options.methodList || ['GET', 'POST', 'PUT', 'DELETE'];
 	var urlMessage = options.urlMessage || 'A forbidden character set has been found in URL: ';
