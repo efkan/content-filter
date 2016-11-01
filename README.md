@@ -108,7 +108,7 @@ Use this option to configure body black list elements and to stop the filtering 
  `app.use(filter({bodyBlackList:['test']}))` <br>
 
 **caseSensitive**:<br>
-Use this option to stop the case-sensitive when filtering. The default value of `caseSensitive` is `true`. <br>
+Use this option to stop the case-sensitive when filtering. The option is `true` as default. <br>
 Keep in mind that `bodyBlackList:['MALICIOUS']` is not equal to `bodyBlackList:['Malicious']`. To catch both of them use `caseSensitive` like the following: <br>
 `app.use(filter({bodyBlackList:['malicious'], caseSensitive:false}))`
 
