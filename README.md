@@ -96,7 +96,7 @@ _Note: Ascii code must be used for non-english and specific characters like spac
 
 **urlMessage**:<br>
 Use this option to change the default request blocking message to show to the user. <br>
- `app.use(filter({urlMessage: 'A forbidden character set has been found in URL: '}))` <br>
+ `app.use(filter({urlMessage: 'A forbidden expression has been found in URL: '}))` <br>
 
 **bodyBlackList**:<br>
 Use this option to configure body black list elements and to stop the filtering the body content. The module checks for `$` as default considering MongoDB security.<br>
@@ -134,7 +134,7 @@ By the way, the above method is wrong. Instaed that, Passport.js and `req.user._
 
 **bodyMessage**:<br>
 Use this option to change the default request blocking message to show to the user.<br>
- `app.use(filter({bodyMessage: 'A forbidden string has been found in form data: '}))` <br>
+ `app.use(filter({bodyMessage: 'A forbidden expression has been found in form data: '}))` <br>
 
 **methodList**:<br>
 Use this option to select method which will have been filtered and to stop the checking any method. The module checks for GET, POST, PUT and DELETE methods as default.  <br>
@@ -143,14 +143,14 @@ Use this option to select method which will have been filtered and to stop the c
  `app.use(filter({methodList:['POST', 'PUT', 'DELETE']}))` <br>
 
 **combining options:**<br>
- `app.use(filter({urlBlackList:['%24ne'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE']}))`
+ `app.use(filter({urlBlackList:['&&'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE']}))`
  or
  ```
  var filterOptions = {
- 	urlBlackList:['%24ne'],
- 	urlMessage: 'A forbidden character set has been found in URL: ',
+ 	urlBlackList:['&&'],
+ 	urlMessage: 'A forbidden expression has been found in URL: ',
  	bodyBlackList:['$ne'],
- 	bodyMessage: 'A forbidden character has been found in form data: ',
+ 	bodyMessage: 'A forbidden expression has been found in form data: ',
  	methodList:['POST', 'PUT', 'DELETE']
  }
 
@@ -183,7 +183,7 @@ Configuring the `content-filter`:<br>
 var options = {
 	typeList:['object','string'],
 	bodyBlackList:['sh*t'],
-	bodyMessage: 'A forbidden character has been found in form data: ',
+	bodyMessage: 'A forbidden expression has been found in form data: ',
 	methodList:['POST', 'PUT', 'DELETE']
 }
 
@@ -204,7 +204,7 @@ Content-Type: application/json
 ```
 
 HTML status of the server response would be `403` (forbidden). And the response test like the following:
-`A forbidden character has been found in form data: sh*t`
+`A forbidden expression has been found in form data: sh*t`
 
 ###Filtering URL data for a string
 Althought it's not sensible I'll filter URL data for 'admin_id' word for the sake of example.
@@ -219,7 +219,7 @@ Host: webaddresss.com
 ```
 
 HTML status of the server response would be `403` (forbidden). And the response test like the following:
-`A forbidden character set has been found in URL: admin_id`
+`A forbidden expression has been found in URL: admin_id`
 
 
 Performance test results
