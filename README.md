@@ -88,11 +88,10 @@ Use this option to configure URL black list elements and to stop the filtering t
 
 _Note: Ascii code must be used for non-english and specific characters like space. (**`%20`** must be used instead of **space** - [more information](http://www.w3schools.com/tags/ref_urlencode.asp))<br>_
 
+_Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&`,`||`) should be filtered. They can be changed in time._
+
  Removing url filtering;<br>
  `app.use(filter({urlBlackList:[null]}))` <br>
-
- Configuring the filter only for `$ne` characters;<br>
- `app.use(filter({urlBlackList:['$ne']}))` <br>
  
  Configuring the filter for several words;<br>
  `app.use(filter({urlBlackList:['word1', 'word2']}))` <br>
@@ -107,8 +106,10 @@ Use this option to configure body black list elements and to stop the filtering 
  Removing body filtering;<br>
  `app.use(filter({bodyBlackList:[null]}))` <br>
 
- Configuring to filter only for `$ne` characters;<br>
- `app.use(filter({bodyBlackList:['$ne']}))` <br>
+ Configuring the filter for `$`, `{`, `&&`, `||`, characters;<br>
+ `app.use(filter({bodyBlackList:['$','{','&&','||']}))` <br>
+
+_Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&`,`||`) should be filtered. They can be changed in time._
 
 **caseSensitive**:<br>
 Use this option to stop the case-sensitive when filtering. The default value of `caseSensitive` is `true`. <br>
@@ -142,7 +143,7 @@ Use this option to change the default request blocking message to show to the us
 **methodList**:<br>
 Use this option to select method which will have been filtered and to stop the checking any method. The module checks for GET, POST, PUT and DELETE methods as default.  <br>
 
- Configuring to filter only for `POST`, `PUT` and `DELETE` methods;<br>
+ Configuring the filter only for `POST`, `PUT` and `DELETE` methods;<br>
  `app.use(filter({methodList:['POST', 'PUT', 'DELETE']}))` <br>
 
 **combining options:**<br>
