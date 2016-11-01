@@ -29,7 +29,7 @@
   },
   "license": "MIT",
   "repository": {
-    "type": "git",
+    "type": "git", 
     "url": "git+https://github.com/efkan/content-filter.git"
   },
   "dependencies": {},
