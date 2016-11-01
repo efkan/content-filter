@@ -1,9 +1,7 @@
 # Content-filter
 <span>[![Build Status](https://travis-ci.org/efkan/content-filter.svg?branch=master)](https://travis-ci.org/efkan/content-filter)</span>
 
-Filters coming HTML request content for any character, character set or a word and returns an *Express.js middleware*. The middleware examines URL and HTML body contents of the request (by using body-parser) and blocks the request and returns a message if there is a forbidden character. In this way, provides protection against NoSQL (like MongoDB) injection attacks for Node.js applications.
-
-Used for to filter HTML request for general purpose. For instance, the purpose of blocking _a slang_ word or _a swearword_.
+Filters coming HTML request content for any character, character set, a word (_slang_, _swearword_ or whatever) or a sentence and returns an *Express.js middleware*. The middleware examines URL and HTML body contents of the request (by using body-parser) and blocks the request and returns a message if there is a forbidden character. In this way, provides protection against NoSQL (like MongoDB) injection attacks for Node.js applications.
 
 What about NoSQL? What are the risks?<br>
 <a href='https://www.owasp.org/index.php/Testing_for_NoSQL_injection'>https://www.owasp.org/index.php/Testing_for_NoSQL_injection</a><br>
@@ -11,9 +9,9 @@ What about NoSQL? What are the risks?<br>
 <br>
 <a href='http://blog.websecurify.com/2014/08/attacks-nodejs-and-mongodb-part-to.html'>http://blog.websecurify.com/2014/08/attacks-nodejs-and-mongodb-part-to.html</a>
 
-Not depend on MongoDB
-----------------------
-You can use with purpose of filtering for anything. Also you can filter only URL or body data. See [examples](#examples) and [performance tests results](#performance-test-results).
+Filtering for anything
+-----------------------
+`content-filer` does not depend on MongoDB. You can use with purpose of filtering for anything. Also you can filter only URL or body data. See [examples](#examples) and [performance tests results](#performance-test-results).
 
 Motivation
 -----------
