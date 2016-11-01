@@ -88,7 +88,7 @@ Use this option to configure URL black list elements and to stop the filtering t
 
 _Note: Ascii code must be used for non-english and specific characters like space. (**`%20`** must be used instead of **space** - [more information](http://www.w3schools.com/tags/ref_urlencode.asp))<br>_
 
-_Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&`,`||`) should be filtered. They can be changed in time._
+_Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&` and `||`) should be filtered. They can be changed in time._
 
  Removing url filtering;<br>
  `app.use(filter({urlBlackList:[null]}))` <br>
@@ -109,7 +109,7 @@ Use this option to configure body black list elements and to stop the filtering 
  Configuring the filter for `$`, `{`, `&&` and `||` characters;<br>
  `app.use(filter({bodyBlackList:['$','{','&&','||']}))` <br>
 
-_Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&`,`||`) should be filtered. They can be changed in time._
+_Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&` and `||`) should be filtered. They can be changed in time._
 
 **caseSensitive**:<br>
 Use this option to stop the case-sensitive when filtering. The default value of `caseSensitive` is `true`. <br>
