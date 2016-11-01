@@ -94,6 +94,9 @@ _Note: At the same time GET method requests are evaluated by using urlBlackList_
 
  Configuring to filter only for `$ne` characters;<br>
  `app.use(filter({urlBlackList:['%24ne']}))` <br>
+ 
+ Configuring to filter several words;<br>
+ `app.use(filter({urlBlackList:['word1', 'word2']}))` <br>
 
 **urlMessage**:<br>
 Use this option to change the default request blocking message to show to the user. <br>
@@ -109,9 +112,9 @@ Use this option to configure body black list elements and to stop the filtering 
  `app.use(filter({bodyBlackList:['$ne']}))` <br>
 
 **caseSensitive**:<br>
-Use this option to stop character case-sensitive when matching. The default value of `caseSensitive` is `true`. <br>
+Use this option to stop the case-sensitive when filtering. The default value of `caseSensitive` is `true`. <br>
 Keep in mind that `bodyBlackList:['MALICIOUS']` is not equal to `bodyBlackList:['Malicious']`. To catch both of them use `caseSensitive` like the following: <br>
-`app.use(filter({bodyBlackList:[malicious], caseSensitive:false}))`
+`app.use(filter({bodyBlackList:['malicious'], caseSensitive:false}))`
 
 _Note: if `content-filter` is used for to secure NoSQL DB by only checking special characters like `$` and `{` don't set this parameter false because of thought of performance. Actually it takes trivial too very small time._
 
@@ -184,7 +187,7 @@ Content-Type: application/json
 
 {
   "address": {
-	"street": "Sh*t Road St."
+	"street": "The Sh*t Road St."
   }
 }
 ```
