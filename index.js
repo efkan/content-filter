@@ -84,7 +84,7 @@ function jsonToString(json, typeList, checkNames, callback) {
 	iterative(json);
 	function iterative(data) {
 		var keys = Object.keys(data);
-		// Ari [fixing]: Never callback if keys.lenght == 0
+		// Ari [fixing]: Never callback if keys.length == 0
 		if (keys.length === 0) {
 			callback('');
 		}
