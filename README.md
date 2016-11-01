@@ -250,7 +250,7 @@ Performance test results
 }
 ```
 
-**Credit:** [http://blog.tompawlak.org/measure-execution-time-nodejs-javascript][3]
+**Credit:** @T-PWK [http://blog.tompawlak.org/measure-execution-time-nodejs-javascript][3]
 
 [1]:https://github.com/vkarpov15/mongo-sanitize
 [2]:https://nodejs.org/api/process.html#process_process_hrtime
