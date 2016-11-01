@@ -88,8 +88,6 @@ Use this option to configure URL black list elements and to stop the filtering t
 
 _Note: Ascii code must be used for non-english and specific characters like space. (**`%20`** must be used instead of **space** - [more information](http://www.w3schools.com/tags/ref_urlencode.asp))<br>_
 
-_Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&` and `||`) should be filtered. They can be changed in time._
-
  Removing url filtering;<br>
  `app.use(filter({urlBlackList:[null]}))` <br>
  
@@ -106,10 +104,8 @@ Use this option to configure body black list elements and to stop the filtering 
  Removing body filtering;<br>
  `app.use(filter({bodyBlackList:[null]}))` <br>
 
- Configuring the filter for `$`, `{`, `&&` and `||` characters;<br>
- `app.use(filter({bodyBlackList:['$','{','&&','||']}))` <br>
-
-_Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&` and `||`) should be filtered. They can be changed in time._
+ Configuring the filter for only `test` characters;<br>
+ `app.use(filter({bodyBlackList:['test']}))` <br>
 
 **caseSensitive**:<br>
 Use this option to stop the case-sensitive when filtering. The default value of `caseSensitive` is `true`. <br>
@@ -163,20 +159,35 @@ Use this option to select method which will have been filtered and to stop the c
  
 Examples
 -------------------------
+###Protecting a MongoDB from injection
+Configuring the filter for `$`, `{`, `&&` and `||` characters;<br>
+```
+var blackList = ['$','{','&&','||']
+var options = {
+	urlBlackList: blackList,
+	bodyBlackList: blackList
+}
+
+app.use(filter(options))
+```
+
+_Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&` and `||`) should be filtered. They can be changed in time._
+
+
 ###Filtering the form data object for a string
 Filtering the form data object for a string slang word 'sh*t' :)
 
 Configuring the `content-filter`:<br>
 (Actually default values of typeList, bodyMessage and methodList are already proper and not needed to set them)
 ```
-var filterOptions = {
+var options = {
 	typeList:['object','string'],
 	bodyBlackList:['sh*t'],
 	bodyMessage: 'A forbidden character has been found in form data: ',
 	methodList:['POST', 'PUT', 'DELETE']
 }
 
-app.use(filter(filterConf))
+app.use(filter(options))
 ```
 
 Assume that the request below comes to the server:
