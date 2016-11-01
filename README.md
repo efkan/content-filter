@@ -10,7 +10,7 @@ What are the risks;<br>
 
 Not depend on MongoDB
 ----------------------
-You can use with purpose of filtering for anything. Also you can filter only URL or body data.
+You can use with purpose of filtering for anything. Also you can filter only URL or body data. See [examples](#examples) and [performance tests results](#performance-test-results).
 
 Motivation
 -----------
@@ -78,11 +78,15 @@ There are several options are used for to configure the module.
 Use this option to set filter data structure types of Javascript. Content-filter able to check every data type (object, function, number, string, boolean and symbol) to filter. Because an application cannot make a decision whether an expression is an innocent or a malicious. But a developer can. Content-filter checks `object` and `function` types as default considering MongoDB security.
 
  Setting to check only `string` data types;<br>
- `app.use(filter({typeList:['string']}))` <br>
+ `app.use(filter({typeList:['string']}))` <br><br>
+_Note: To filter form data object for a string 'object' parameter must be found in typeList array_ <br>
+ `app.use(filter({typeList:['object','string']}))`<br>
 
 **urlBlackList**:<br>
 Use this option to configure URL black list elements (ASCII codes) and to stop the filtering the URL content. The module checks `%7B` for `{` and `%24` for `$` as default considering MongoDB security.<br>
 Also `urlBlackList` scope contains `req.query` object.<br>
+
+_Note: At the same time GET method requests are evaluated by using urlBlackList_
 
  Removing url filtering;<br>
  `app.use(filter({urlBlackList:[null]}))` <br>
@@ -132,7 +136,7 @@ Use this option to select method which will have been filtered and to stop the c
  `app.use(filter({methodList:['POST', 'PUT', 'DELETE']}))` <br>
 
 **combining options:**<br>
- ```app.use(filter({urlBlackList:['%24ne'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE']}))```
+ `app.use(filter({urlBlackList:['%24ne'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE']}))`
  or
  ```
  var filterOptions = {
@@ -145,6 +149,56 @@ Use this option to select method which will have been filtered and to stop the c
 
  app.use(filter(filterConf))
  ```
+ 
+Examples
+-------------------------
+###Filtering the form data object for a string
+Filtering the form data object for a string slang word 'sh*t' :)
+
+Configuring the `content-filter`:
+(Actually default values of typeList, bodyMessage and methodList are already proper and not needed to set them)
+```
+var filterOptions = {
+	typeList:['object','string'],  // .
+	bodyBlackList:['sh*t'],
+	bodyMessage: 'A forbidden character has been found in form data: ',
+	methodList:['POST', 'PUT', 'DELETE']
+}
+
+app.use(filter(filterConf))
+```
+
+Assume that the request below comes to the server:
+```
+POST /users HTTP/1.1
+Host: webaddress.com
+Content-Type: application/json
+
+{
+  "address": {
+	"street": "Sh*t Road St."
+  }
+}
+```
+
+HTML status of the server response would be `403` (forbidden). And the response test like the following:
+`A forbidden character has been found in form data: sh*t`
+
+###Filtering URL data for a string
+Althought it's not sensible I'll filter URL data for 'admin_id' word for the sake of example.
+
+Configuring the `content-filter`:
+`app.use(filter({urlBlackList:['admin_id']}))`
+
+Assume that the request below comes to the server(full URL `http://webaddress.com/?query=admin_id`):
+```
+GET /?query=admin_id HTTP/1.1
+Host: webaddresss.com
+```
+
+HTML status of the server response would be `403` (forbidden). And the response test like the following:
+`A forbidden character set has been found in URL: admin_id`
+
 
 Performance test results
 --------------------------
