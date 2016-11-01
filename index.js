@@ -3,7 +3,7 @@ module.exports = function filter(options) {
 	options = options || {};
 
 	var checkNames = options.checkNames || true;
-	var typeList = options.typeList || ['object', 'function'];
+	var typeList = options.typeList || ['object', 'function', 'string'];
 	var urlBlackList = options.urlBlackList || ['%7B','%24'];
 	var bodyBlackList = options.bodyBlackList || ['$'];
 	var methodList = options.methodList || ['GET', 'POST', 'PUT', 'DELETE'];
