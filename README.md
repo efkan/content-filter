@@ -11,7 +11,7 @@ What about NoSQL? What are the risks?<br>
 
 Filtering for anything
 -----------------------
-`content-filer` does not depend on MongoDB. You can use with purpose of filtering for anything. Also you can filter only URL or body data. See [examples](#examples) and [performance tests results](#performance-test-results).
+`content-filer` does not depend on NoSQL. You can use with purpose of filtering for anything. Also you can filter only URL or body data. See the [guide](#guide), [examples](#examples) and [performance tests results](#performance-test-results).
 
 Motivation
 -----------
