@@ -155,7 +155,7 @@ Examples
 ###Filtering the form data object for a string
 Filtering the form data object for a string slang word 'sh*t' :)
 
-Configuring the `content-filter`:
+Configuring the `content-filter`:<br>
 (Actually default values of typeList, bodyMessage and methodList are already proper and not needed to set them)
 ```
 var filterOptions = {
