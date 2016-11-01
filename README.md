@@ -3,7 +3,7 @@
 
 Filters coming HTML request content for any character, character set or a word and returns an *Express.js middleware*. The middleware examines URL and HTML body contents of the request (by using body-parser) and blocks the request and returns a message if there is a forbidden character. In this way, provides protection against NoSQL (like MongoDB) injection attacks for Node.js applications.
 
-Used for to filter HTML request for general purpose. For instance, the purpose of blocking a slang word or a swearword.
+Used for to filter HTML request for general purpose. For instance, the purpose of blocking _a slang_ word or _a swearword_.
 
 What about NoSQL? What are the risks?<br>
 <a href='https://www.owasp.org/index.php/Testing_for_NoSQL_injection'>https://www.owasp.org/index.php/Testing_for_NoSQL_injection</a><br>
