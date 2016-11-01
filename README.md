@@ -108,6 +108,13 @@ Use this option to configure body black list elements and to stop the filtering 
  Configuring to filter only for `$ne` characters;<br>
  `app.use(filter({bodyBlackList:['$ne']}))` <br>
 
+**caseSensitive**:<br>
+Use this option to stop character case-sensitive when matching. The default value of `caseSensitive` is `true`. <br>
+Keep in mind that `bodyBlackList:['MALICIOUS']` is not equal to `bodyBlackList:['Malicious']`. To catch both of them use `caseSensitive` like the following: <br>
+`app.use(filter({bodyBlackList:[malicious], caseSensitive:false}))`
+
+_Note: if `content-filter` is used for to secure NoSQL DB by only checking special characters like `$` and `{` don't set this parameter false because of thought of performance. Actually it takes trivial too very small time._
+
 **checkNames**:<br>
 Use this option to include property names of the objects -that will have been checked- to filter. The option is `true` as default.
 
