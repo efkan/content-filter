@@ -159,7 +159,7 @@ Configuring the `content-filter`:<br>
 (Actually default values of typeList, bodyMessage and methodList are already proper and not needed to set them)
 ```
 var filterOptions = {
-	typeList:['object','string'],  // .
+	typeList:['object','string'],
 	bodyBlackList:['sh*t'],
 	bodyMessage: 'A forbidden character has been found in form data: ',
 	methodList:['POST', 'PUT', 'DELETE']
