@@ -7,8 +7,8 @@ module.exports = function filter(options) {
 	var urlBlackList = options.urlBlackList || ['$','{'];
 	var bodyBlackList = options.bodyBlackList || ['$'];
 	var methodList = options.methodList || ['GET', 'POST', 'PUT', 'DELETE'];
-	var urlMessage = options.urlMessage || 'A forbidden character set has been found in URL: ';
-	var bodyMessage = options.bodyMessage || 'A forbidden string has been found in form data: ';
+	var urlMessage = options.urlMessage || 'A forbidden expression has been found in URL: ';
+	var bodyMessage = options.bodyMessage || 'A forbidden expression has been found in form data: ';
 	var caseSensitive = (options.caseSensitive === false) ? false : true;
 
 
