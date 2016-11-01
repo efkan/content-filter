@@ -106,7 +106,7 @@ Use this option to configure body black list elements and to stop the filtering 
  Removing body filtering;<br>
  `app.use(filter({bodyBlackList:[null]}))` <br>
 
- Configuring the filter for `$`, `{`, `&&`, `||`, characters;<br>
+ Configuring the filter for `$`, `{`, `&&` and `||` characters;<br>
  `app.use(filter({bodyBlackList:['$','{','&&','||']}))` <br>
 
 _Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&`,`||`) should be filtered. They can be changed in time._
