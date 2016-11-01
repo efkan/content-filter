@@ -21,7 +21,7 @@ module.exports = function filter(options) {
 		/* Examining the URL */
 		if (caseSensitive) {
 			for (var i = 0; i < urlBlackList.length; i++){
-				/* The URL in the request might be handled by using 'req.params.id' for 'address/users/:id' by the programmer.
+				/* The URL in the request might be handled by using 'req.params.id' for 'address/users/:id' by a programmer.
 				   Because of this don't use req.query object instead of req.originalUrl value */
 				if (req.originalUrl.indexOf(urlBlackList[i]) !== -1) {
 					found = urlBlackList[i];
