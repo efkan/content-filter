@@ -177,6 +177,9 @@ _Note: Today to secure NoSQL databases, [several important characters](https://g
 ###Filtering the form data object for a string
 Filtering the form data object for a string slang word 'sh*t' :)
 
+_Note: Most of the time blocking the word on the client side may be more accurate solution when considering the server performance.
+However if the message comes from an API `content-filter` might be solved this issue_
+
 Configuring the `content-filter`:<br>
 (Actually default values of typeList, bodyMessage and methodList are already proper and not needed to set them)
 ```
