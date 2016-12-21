@@ -10,6 +10,7 @@ module.exports = function filter(options) {
 	var urlMessage = options.urlMessage || 'A forbidden expression has been found in URL: ';
 	var bodyMessage = options.bodyMessage || 'A forbidden expression has been found in form data: ';
 	var caseSensitive = (options.caseSensitive === false) ? false : true;
+	var dispatchToErrorHandler = (options.dispatchToErrorHandler === true) ? true : false;
 
 
 	return function filter(req, res, next) {
@@ -39,7 +40,11 @@ module.exports = function filter(options) {
 			}
 		}
 		if (found) {
-			return res.status(403).send(urlMessage + found);
+			if (dispatchToErrorHandler) {
+				return next({status: 403, code: "FORBIDDEN_CONTENT", message: urlMessage + found})
+			} else {
+				return res.status(403).send(urlMessage + found);
+			}
 		}
 
 		/* Examining the req.body object If there is a req.body object it must be checked */
@@ -70,7 +75,11 @@ module.exports = function filter(options) {
 				// var hrend = process.hrtime(hrstart)
 				// console.log('Execution time (hr): %ds %dms', hrend[0], hrend[1]/1000000)
 				if (found) {
-					return res.status(403).send(bodyMessage + found);
+					if (dispatchToErrorHandler) {
+						return next({status: 403, code: "FORBIDDEN_CONTENT", message: urlMessage + found})
+					} else {
+						return res.status(403).send(bodyMessage + found);
+					}
 				}
 				next();
 			});

@@ -31,7 +31,7 @@ Guide
 <b>Install</b><br>
 `npm install content-filter --save`
 
-<b>Note:</b> The package doesn't contain `body-parser` library. So, the library should be added the project to use `content-filter`.<br> 
+<b>Note:</b> The package doesn't contain `body-parser` library. So, the library should be added the project to use `content-filter`.<br>
 `npm install body-parser --save`
 
 <b>Using with Express.js</b>
@@ -75,6 +75,12 @@ Content-Type: application/json
 
 There are several options are used for to configure the module.
 
+**methodList**:<br>
+Use this option to select method which will have been filtered and to stop the checking any method. The module checks for GET, POST, PUT and DELETE methods as default.  <br>
+
+ Configuring the filter only for `POST`, `PUT` and `DELETE` methods;<br>
+ `app.use(filter({methodList:['POST', 'PUT', 'DELETE']}))` <br>
+
 **typeList**:<br>
 Use this option to set filter data structure types of Javascript. Content-filter able to check every data type (object, function, number, string, boolean and symbol) to filter. Because an application cannot make a decision whether an expression is an innocent or a malicious. But a developer can. Content-filter checks `object` and `function` types as default considering MongoDB security.
 
@@ -90,7 +96,7 @@ _Note: Ascii code must be used for non-english and specific characters like spac
 
  Removing url filtering;<br>
  `app.use(filter({urlBlackList:[null]}))` <br>
- 
+
  Configuring the filter for several words;<br>
  `app.use(filter({urlBlackList:['word1', 'word2']}))` <br>
 
@@ -106,6 +112,10 @@ Use this option to configure body black list elements and to stop the filtering 
 
  Configuring the filter for only `test` characters;<br>
  `app.use(filter({bodyBlackList:['test']}))` <br>
+
+**bodyMessage**:<br>
+Use this option to change the default request blocking message to show to the user.<br>
+ `app.use(filter({bodyMessage: 'A forbidden expression has been found in form data: '}))` <br>
 
 **caseSensitive**:<br>
 Use this option to stop the case-sensitive when filtering. The option is `true` as default. <br>
@@ -129,21 +139,17 @@ Assume there is a request body object like the following which comes from a user
 shoppingCarts.delete({ _id: req.body._id })
 ```
 
-By the way, the above method is wrong. Instaed that, Passport.js and `req.user._id` object could be used.<br>
+By the way, the above method is not a best-practice. Instaed that, Passport.js and `req.user._id` object could be used.<br>
 
+**dispatchToErrorHandler**:<br>
+Use this option to dispatch the error to your error handler middleware when `content-filter` catches forbidden characters. <br>
 
-**bodyMessage**:<br>
-Use this option to change the default request blocking message to show to the user.<br>
- `app.use(filter({bodyMessage: 'A forbidden expression has been found in form data: '}))` <br>
+ Configuring the filter to dispatch errors to the error handler;<br>
+ `app.use(filter({dispatchToErrorHandler: true}))` <br>
 
-**methodList**:<br>
-Use this option to select method which will have been filtered and to stop the checking any method. The module checks for GET, POST, PUT and DELETE methods as default.  <br>
-
- Configuring the filter only for `POST`, `PUT` and `DELETE` methods;<br>
- `app.use(filter({methodList:['POST', 'PUT', 'DELETE']}))` <br>
 
 **combining options:**<br>
- `app.use(filter({urlBlackList:['&&'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE']}))`
+ `app.use(filter({urlBlackList:['&&'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE'], dispatchToErrorHandler: true}))`
  or
  ```
  var filterOptions = {
@@ -151,12 +157,13 @@ Use this option to select method which will have been filtered and to stop the c
  	urlMessage: 'A forbidden expression has been found in URL: ',
  	bodyBlackList:['$ne'],
  	bodyMessage: 'A forbidden expression has been found in form data: ',
- 	methodList:['POST', 'PUT', 'DELETE']
+ 	methodList:['POST', 'PUT', 'DELETE'],
+  dispatchToErrorHandler: true,
  }
 
  app.use(filter(filterConf))
  ```
- 
+
 Examples
 -------------------------
 ###Protecting a MongoDB from injection
