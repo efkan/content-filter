@@ -11,7 +11,7 @@ What about NoSQL? What are the risks?<br>
 
 Filtering for anything
 -----------------------
-`content-filer` does not depend on NoSQL. You can use with purpose of filtering for anything. Also you can filter only URL or body data. See the [guide](#guide), [examples](#examples) and [performance tests results](#performance-test-results).
+`content-filer` does not depend on NoSQL. You can use with purpose of filtering for anything. Also you can filter only URL or body data. See the [sample project](#sample-project) in use, [guide](#guide), [examples](#examples) and [performance tests results](#performance-test-results).
 
 Motivation
 -----------
@@ -25,6 +25,10 @@ Malicous users might embed unwanted expression into the `req.body` object as the
 If you want to check query parameters when you querying the collection there is another beautiful and lightweight solution which is named as [mongo-sanitize][1].
 <br><br>
 However I've wanted a middleware tool to filter the data at the beginning of my Node.js app. Without any special labor at every MongoDB operation. Therefore I wrote this easy tool.
+
+Sample Project
+---------------
+[content-filter-example](https://github.com/efkan/content-filter-example)
 
 Guide
 ---------
@@ -54,10 +58,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 
 app.use(filter()); /* STEP-2 and that's all */
+
 ```
 By the above default using, content-filter checks the request URL for `{` and `$` characters and functions and objects of the html body data *property names* for `$` character coming by `GET`, `POST`, `PUT` and `DELETE` methods.
 
-For example, content-filter checks "/users", _id", "$ne", "address", "street" and "province" values from the below request. "/users" is examined for `{` and `$` characters and it passes. The others are examined for `$` character and return 403 status with an error message because of "$ne" expression and hereby **content-filter provide a reliable security for MongoDB applications against the injection attacks**.
+For example, content-filter checks "/users", "_id", "$ne", "address", "street" and "province" values from the below request. "/users" is examined for `{` and `$` characters and it passes. The others are examined for `$` character and return 403 status with an error message because of "$ne" expression and hereby **content-filter provide a reliable security for MongoDB applications against the injection attacks**.
 
 ```
 PUT /users HTTP/1.1
@@ -127,7 +132,7 @@ _Note: if `content-filter` is used for to secure NoSQL DB by only checking speci
 **checkNames**:<br>
 Use this option to include property names of the objects -that will have been checked- to filter. The option is `true` as default.
 
-Assume there is a request body object like the following which comes from a user form to delete selected goods from `shoppingCarts` collection by user _id value from our MongoDB. If `checkNames` option is set as `false` content-filter checks `"abcd"` and `10` values if *typeList* contains 'string' and 'number' values. When `checkNames` option is `true`, content-filter checks `id`, `$ne`, `"abcd"`, `count` and `10` values under the same conditions.
+Assume there is a request body object like the following which comes from a user form to delete selected goods from `shoppingCarts` collection by user `_id` value from our MongoDB. If `checkNames` option is set as `false` content-filter checks `"abcd"` and `10` values if *typeList* contains 'string' and 'number' values. When `checkNames` option is `true`, content-filter checks `id`, `$ne`, `"abcd"`, `count` and `10` values under the same conditions.
 
 ```
 {
@@ -149,8 +154,10 @@ Use this option to dispatch the error to your error handler middleware when `con
 
 
 **combining options:**<br>
- `app.use(filter({urlBlackList:['&&'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE'], dispatchToErrorHandler: true}))`
- or
+ `app.use(filter({urlBlackList:['&&'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE'], dispatchToErrorHandler: true}))` <br>
+ <br>
+ or<br>
+ <br>
  ```
  var filterOptions = {
  	urlBlackList:['&&'],
@@ -166,6 +173,7 @@ Use this option to dispatch the error to your error handler middleware when `con
 
 Examples
 -------------------------
+
 ###Protecting a MongoDB from injection
 Configuring the filter for `$`, `{`, `&&` and `||` characters;<br>
 ```
