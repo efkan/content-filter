@@ -158,9 +158,7 @@ By this option `content-filter` gives an error object to the `next(error)` metho
 
 **combining options:**<br>
  `app.use(filter({urlBlackList:['&&'], bodyBlackList:['$ne'], methodList:['POST', 'PUT', 'DELETE'], dispatchToErrorHandler: true}))` <br>
- <br>
  or<br>
- <br>
  ```
  var filterOptions = {
  	urlBlackList:['&&'],
