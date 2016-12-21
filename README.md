@@ -152,7 +152,8 @@ Use this option to dispatch the error to your error handler middleware when `con
  Configuring the filter to dispatch errors to the error handler;<br>
  `app.use(filter({dispatchToErrorHandler: true}))` <br>
 
-`content-filter` gives an error object to the `next(error)` method like this object `{ status: 403, code: "FORBIDDEN_CONTENT", message: Message }` to handle in error handler.
+By this option `content-filter` gives an error object to the `next(error)` method like the following object to handle in error handler. <br>
+  `{ status: 403, code: "FORBIDDEN_CONTENT", message: Message }`
 
 
 **combining options:**<br>
