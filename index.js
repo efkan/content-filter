@@ -12,6 +12,8 @@ module.exports = function filter(options) {
 	var caseSensitive = (options.caseSensitive === false) ? false : true;
 	var dispatchToErrorHandler = (options.dispatchToErrorHandler === true) ? true : false;
 
+	var errorStatus = 403
+	var errorCode = "FORBIDDEN_CONTENT"
 
 	return function filter(req, res, next) {
 		/* Only examine the valid methodList */
@@ -41,9 +43,9 @@ module.exports = function filter(options) {
 		}
 		if (found) {
 			if (dispatchToErrorHandler) {
-				return next({status: 403, code: "FORBIDDEN_CONTENT", message: urlMessage + found})
+				return next({status: errorStatus, code: errorCode, message: urlMessage + found})
 			} else {
-				return res.status(403).send(urlMessage + found);
+				return res.status(errorStatus).send(urlMessage + found);
 			}
 		}
 
@@ -76,9 +78,9 @@ module.exports = function filter(options) {
 				// console.log('Execution time (hr): %ds %dms', hrend[0], hrend[1]/1000000)
 				if (found) {
 					if (dispatchToErrorHandler) {
-						return next({status: 403, code: "FORBIDDEN_CONTENT", message: urlMessage + found})
+						return next({status: errorStatus, code: errorCode, message: urlMessage + found})
 					} else {
-						return res.status(403).send(bodyMessage + found);
+						return res.status(errorStatus).send(bodyMessage + found);
 					}
 				}
 				next();
