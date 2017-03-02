@@ -44,9 +44,9 @@ module.exports = function filter(options) {
 		}
 		if (found) {
 			if (dispatchToErrorHandler) {
-				return next({status: errorStatus, code: errorCode, message: urlMessage + (appendFound? found: "")})
+				return next({status: errorStatus, code: errorCode, message: urlMessage + (appendFound ? found : "")})
 			} else {
-				return res.status(errorStatus).send(urlMessage + (appendFound? found: ""));
+				return res.status(errorStatus).send(urlMessage + (appendFound ? found : ""));
 			}
 		}
 
