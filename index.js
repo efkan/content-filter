@@ -9,6 +9,7 @@ module.exports = function filter(options) {
 	var methodList = options.methodList || ['GET', 'POST', 'PUT', 'DELETE'];
 	var urlMessage = options.urlMessage || 'A forbidden expression has been found in URL: ';
 	var bodyMessage = options.bodyMessage || 'A forbidden expression has been found in form data: ';
+	var appendFound = options.appendFound || false;
 	var caseSensitive = (options.caseSensitive === false) ? false : true;
 	var dispatchToErrorHandler = (options.dispatchToErrorHandler === true) ? true : false;
 
@@ -43,9 +44,9 @@ module.exports = function filter(options) {
 		}
 		if (found) {
 			if (dispatchToErrorHandler) {
-				return next({status: errorStatus, code: errorCode, message: urlMessage + found})
+				return next({status: errorStatus, code: errorCode, message: urlMessage + (appendFound? found: "")})
 			} else {
-				return res.status(errorStatus).send(urlMessage + found);
+				return res.status(errorStatus).send(urlMessage + (appendFound? found: ""));
 			}
 		}
 
@@ -78,9 +79,9 @@ module.exports = function filter(options) {
 				// console.log('Execution time (hr): %ds %dms', hrend[0], hrend[1]/1000000)
 				if (found) {
 					if (dispatchToErrorHandler) {
-						return next({status: errorStatus, code: errorCode, message: urlMessage + found})
+						return next({status: errorStatus, code: errorCode, message: urlMessage + (appendFound? found: "")})
 					} else {
-						return res.status(errorStatus).send(bodyMessage + found);
+						return res.status(errorStatus).send(bodyMessage + (appendFound? found: ""));
 					}
 				}
 				next();
