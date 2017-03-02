@@ -79,9 +79,9 @@ module.exports = function filter(options) {
 				// console.log('Execution time (hr): %ds %dms', hrend[0], hrend[1]/1000000)
 				if (found) {
 					if (dispatchToErrorHandler) {
-						return next({status: errorStatus, code: errorCode, message: urlMessage + (appendFound? found: "")})
+						return next({status: errorStatus, code: errorCode, message: urlMessage + (appendFound ? found : "")})
 					} else {
-						return res.status(errorStatus).send(bodyMessage + (appendFound? found: ""));
+						return res.status(errorStatus).send(bodyMessage + (appendFound ? found : ""));
 					}
 				}
 				next();
