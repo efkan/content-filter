@@ -187,7 +187,7 @@ var options = {
 app.use(filter(options))
 ```
 
-_Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&` and `||`) should be filtered. They can be changed in time._
+_Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&` and `||`) should be filtered. They can be changed over time._
 
 
 ###Filtering the form data object for a string
