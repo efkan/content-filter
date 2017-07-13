@@ -18,7 +18,7 @@ Motivation
 There a copule of risk when developing a project using NoSQL databases like MongoDB. The first one about URL and the other one about the content of `req.body`. (sent data by an allowed user)
 
 <b>URL risk</b><br>
-If a malicious user tries to hack your database it's not so hard for any body. Although it's not the right way, assume you use `/users/123` as URL to get information and show to a user whose `id` is `123`. However someone tries `/users/%7B%24ne%3Anull%7D` as URL to get user informations after logged on your system the URL means `/users/{$ne:null}` and likely your server sends the all users from your user collection.
+If a malicious user tries to hack your database it's not so hard for anybody. Although it's not the right way, assume you use `/users/123` as URL to get information and show to a user whose `id` is `123`. However someone tries `/users/%7B%24ne%3Anull%7D` as URL to get user informations after logged on your system the URL means `/users/{$ne:null}` and likely your server sends the all users from your user collection.
 
 <b>Content risk</b><br>
 Malicous users might embed unwanted expression into the `req.body` object as the URL risk.
