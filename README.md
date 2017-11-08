@@ -175,7 +175,7 @@ By this option `content-filter` gives an error object to the `next(error)` metho
 Examples
 -------------------------
 
-###Protecting a MongoDB from injection
+### Protecting a MongoDB from injection
 Configuring the filter for `$`, `{`, `&&` and `||` characters;<br>
 ```
 var blackList = ['$','{','&&','||']
@@ -190,7 +190,7 @@ app.use(filter(options))
 _Note: Today to secure NoSQL databases, [several important characters](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt) (`$`,`{`,`&&` and `||`) should be filtered. They can be changed over time._
 
 
-###Filtering the form data object for a string
+### Filtering the form data object for a string
 Filtering the form data object for a string slang word 'sh*t' :)
 
 _Note: Most of the time blocking the word on the client side may be more accurate solution when considering the server performance.
@@ -225,7 +225,7 @@ Content-Type: application/json
 HTML status of the server response would be `403` (forbidden). And the response test like the following:
 `A forbidden expression has been found in form data: sh*t`
 
-###Filtering URL data for a string
+### Filtering URL data for a string
 Althought it's not sensible I'll filter URL data for 'admin_id' word for the sake of example.
 
 Configuring the `content-filter`:
