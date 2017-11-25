@@ -123,7 +123,7 @@ Use this option to change the default request blocking message to show to the us
  `app.use(filter({bodyMessage: 'A forbidden expression has been found in form data: '}))` <br>
 
 **appendFound**:<br>
-Use this option to append found forbidden characters to the end of error message. Error message can be default or overridden urlMessage and bodyMessage.
+Use this option to append found forbidden characters to the end of error message. Error message can be default or overridden urlMessage and bodyMessage.<br>
 `app.use(filter({appendFound: true}))` <br>
 
 **caseSensitive**:<br>
