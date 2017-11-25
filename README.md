@@ -122,6 +122,10 @@ Use this option to configure body black list elements and to stop the filtering 
 Use this option to change the default request blocking message to show to the user.<br>
  `app.use(filter({bodyMessage: 'A forbidden expression has been found in form data: '}))` <br>
 
+**appendFound**:<br>
+Use this option to append found forbidden characters to the end of error message. Error message can be default or overridden urlMessage and bodyMessage.
+`app.use(filter({appendFound: true}))` <br>
+
 **caseSensitive**:<br>
 Use this option to stop the case-sensitive when filtering. The option is `true` as default. <br>
 Keep in mind that `bodyBlackList:['MALICIOUS']` is not equal to `bodyBlackList:['Malicious']`. To catch both of them use `caseSensitive` like the following: <br>
