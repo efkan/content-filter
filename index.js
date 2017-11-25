@@ -93,68 +93,40 @@ module.exports = function filter(options) {
 };
 
 function jsonToString(json, typeList, checkNames, callback) {
+    var visitNode = function(obj) {
+        var type = typeof(obj);
 
-	var str = '', level = 1;
-	iterative(json);
-	function iterative(data) {
-		var keys = Object.keys(data);
-		// Ari [fixing]: Never callback if keys.length == 0
-		if (keys.length === 0) {
-			callback('');
-		}
+        if (obj === null || typeList.indexOf(type) === -1) {
+            return '';
+        }
 
-		for (var i = 0; i < keys.length; i++) {
-			// console.log('keys: ' + keys)
-			// console.log('keys.length: ' + keys.length)
-			if (typeList.indexOf(typeof data[keys[i]]) !== -1) {
+        switch (type) {
+            case 'string':
+                return obj;
 
-				// Carlos [fixing]: null is an object too. So check the value `data[keys[i]]`
-				if (typeof data[keys[i]] === 'object' && data[keys[i]]) {
-					// console.log('an object has been found: ' + data[keys[i]])
-					if (checkNames) {
-						// if the object is an array get the elements
-						if (data[keys[i]].length) {
-							str += data[keys[i]].join('');
-						} else {
-							// else this is an object	so get the property names
-							str += Object.getOwnPropertyNames(data[keys[i]]);
-						}
-					}
-					/************************************************************************************************
-					* If an object is the latest element of a for loop don't increase. Because `else { level-- }`
-					* block never works!
-					************************************************************************************************/
-					if (i !== keys.length - 1)	{
-						level++;
-						// console.log('level increased - new level: ' + level)
-						// console.log('level increased - number of the keys of the new level: ' + Object.keys(data[keys[i]]).length)
-					}
-					iterative(data[keys[i]]);
-				} else {
-					// console.log('else - keys: ' + keys)
-					// console.log('else - keys.length: ' + keys.length)
-					if (i === keys.length - 1) {
-						level--;
-						// console.log('level decrease')
-						// console.log('level decrease - data[keys[i]]: ' + data[keys[i]])
-					}
-					str += (checkNames) ? keys[i] + data[keys[i]] : data[keys[i]];
-					// console.log('level: ' + level)
-					// console.log('i: ' + i)
-					if (level === 0 && i === keys.length - 1) {
-						// console.log('jsonToString has been completed')
-						callback(str);
-					}
-				}
+            case 'number':
+            case 'boolean':
+            case 'undefined':
+                return String(obj);
 
-			} else {
-				if (i === keys.length - 1) {
-					level--;
-				}
-				if (level === 0 && i === keys.length - 1) {
-					callback(str);
-				}
-			}
-		}
-	}
+            default:
+                return visitObject(obj);
+        }
+    }
+
+    var visitObject = function(obj) {
+        var buffer = '';
+
+        var keys = Object.keys(obj);
+        var includeKey = checkNames && !Array.isArray(obj);
+
+        for (var i = 0; i < keys.length; ++i) {
+            var key = keys[i];
+            buffer += (includeKey ? key : '') + visitNode(obj[key]);
+        }
+
+        return buffer;
+    }
+
+    return callback(visitNode(json));
 }
