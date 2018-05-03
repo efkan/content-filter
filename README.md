@@ -47,6 +47,7 @@ app.use(filter());
 ```
 
 A sample usage in the code;
+
 ```
 var express = require('express')
 var bodyParser = require('body-parser')
@@ -77,6 +78,8 @@ Content-Type: application/json
   }
 }
 ```
+
+To read a summary that expresses basic usage of this library [click over here][4]
 
 There are several options are used for to configure the module.
 
@@ -303,3 +306,4 @@ Performance test results
 [1]:https://github.com/vkarpov15/mongo-sanitize
 [2]:https://nodejs.org/api/process.html#process_process_hrtime
 [3]:http://blog.tompawlak.org/measure-execution-time-nodejs-javascript
+[4]:https://github.com/efkan/content-filter/issues/11#issuecomment-386198123
