@@ -136,6 +136,9 @@ _Note: if `content-filter` is used for to secure NoSQL DB by only checking speci
 **checkNames**:<br>
 Use this option to include property names of the objects -that will have been checked- to filter. The option is `true` as default.
 
+To stop filtering key values of objects this option must be set as false like as following: 
+`app.use(filter({checkNames:false}))`)
+
 Assume there is a request body object like the following which comes from a user form to delete selected goods from `shoppingCarts` collection by user `_id` value from our MongoDB. If `checkNames` option is set as `false` content-filter checks `"abcd"` and `10` values if *typeList* contains 'string' and 'number' values. When `checkNames` option is `true`, content-filter checks `id`, `$ne`, `"abcd"`, `count` and `10` values under the same conditions.
 
 ```
