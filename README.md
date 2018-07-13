@@ -24,7 +24,7 @@ If a malicious user tries to hack your database it's not so hard for anybody. Al
 Malicous users might embed unwanted expression into the `req.body` object as the URL risk.
 If you want to check query parameters when you querying the collection there is another beautiful and lightweight solution which is named as [mongo-sanitize][1].
 <br><br>
-However I've wanted a middleware tool to filter the data at the beginning of my Node.js app. Without any special labor at every MongoDB operation. Therefore I wrote this easy tool.
+However I've wanted to use a middleware to filter the data at the beginning of my Node.js app. Without any special labor at every MongoDB operation. Therefore I wrote this easy tool.
 
 Sample Project
 ---------------
