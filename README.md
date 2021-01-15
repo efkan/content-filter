@@ -32,7 +32,7 @@ Sample Project
 
 Guide
 ---------
-<b>Install</b><br>
+<b>Installation</b><br>
 `npm install content-filter --save`
 
 <b>Using with Express.js</b>
