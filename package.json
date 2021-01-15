@@ -46,7 +46,6 @@
   "_shasum": "72cf766f427999269e2a421b02a2b87b626b95c2",
   "_from": "content-filter@*",
   "devDependencies": {
-    "babel-eslint": "^5.0.0-beta6",
-    "eslint": "^1.10.3"
+    "babel-eslint": "^5.0.0-beta6"
   }
 }
